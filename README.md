@@ -1,7 +1,7 @@
 # Projeto de Engenharia de Software 2
 ## Jogo de Xadrez com Inteligência Artificial
 
-# Padrões de Projeto
+# Arquitetura
 - Linguagem de Programação: Python 3.6
 - Framework a ser utilizado: Pygame 1.9.3
 - Será utilizado o módulo de ambientes virtuais `virtualenv`
