@@ -1,5 +1,5 @@
 import pygame
-from tabuleiro import Tabuleiro
+from Tabuleiro import Tabuleiro
 
 pygame.init()
 

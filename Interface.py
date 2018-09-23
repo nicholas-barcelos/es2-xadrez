@@ -2,26 +2,26 @@ class Interface:
     def __init__(self):
         pass
 
-def mostrar():
-    print()
+    def mostrar(self):
+        print()
 
-def atualizar():
-    print()
+    def atualizar(self):
+        print()
 
-def telaInicio():
-    print()
+    def telaInicio(self):
+        print()
 
-def telaCheque():
-    print()
+    def telaCheque(self):
+        print()
 
-def telaDerrota():
-    print()
+    def telaDerrota(self):
+        print()
 
-def telaVitoria():
-    print()
+    def telaVitoria(self):
+        print()
 
-def peca():
-    print()
+    def peca(self):
+        print()
 
-def tabuleiro():
-    print()
+    def tabuleiro(self):
+        print()

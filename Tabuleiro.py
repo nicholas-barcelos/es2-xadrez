@@ -1,35 +1,34 @@
 class Tabuleiro:
-    class Tabuleiro:
-        estado = [
-            ["t", "h", "b", "q", "k", "b", "h", "t"],
-            ["p", "p", "p", "p", "p", "p", "p", "p"],
-            [" ", " ", " ", " ", " ", " ", " ", " "],
-            [" ", " ", " ", " ", " ", " ", " ", " "],
-            [" ", " ", " ", " ", " ", " ", " ", " "],
-            ["P", "P", "P", "P", "P", "P", "P", "P"],
-            ["T", "H", "B", "K", "Q", "B", "H", "T"]
-        ]
+    estado = [
+        ["t", "h", "b", "k", "q", "b", "h", "t"],
+        ["p", "p", "p", "p", "p", "p", "p", "p"],
+        [" ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " ", " ", " ", " "],
+        ["P", "P", "P", "P", "P", "P", "P", "P"],
+        ["T", "H", "B", "Q", "K", "B", "H", "T"]
+    ]
 
-        def __init__(self):
-            pass
+    def __init__(self):
+        pass
 
-def cria():
-    print("Criar")
+    def cria(self):
+        print("Criar")
 
-def destroi():
-    print("Destruir")
+    def destroi(self):
+        print("Destruir")
 
-def inverte():
-    print("Inverte")
+    def inverte(self):
+        print("Inverte")
 
-def movePeca(xOrigem,yOrigem,xDestino,yDestino):
-    print("mover")
+    def movePeca(self, xOrigem,yOrigem,xDestino,yDestino):
+        print("mover")
 
-def removePeca(x,y):
-    print("remover")
+    def removePeca(self, x, y):
+        print("remover")
 
-def trocarPeca(x,y):
-    print("Trocar posicao")
+    def trocarPeca(self, x, y):
+        print("Trocar posicao")
 
-def retornaPeca(x,y):
-    print("Nao lembro")
+    def retornaPeca(self, x, y):
+        print("Nao lembro")

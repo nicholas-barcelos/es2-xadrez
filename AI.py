@@ -2,14 +2,14 @@ class AI:
     def __init__(self):
         pass
 
-def jogar():
-    print()
+    def jogar(self):
+        print()
 
-def desfazerJogada():
-    print()
+    def desfazerJogada(self):
+        print()
 
-def escolher():
-    print()
+    def escolher(self):
+        print()
 
-def poda():
-    print()
+    def poda(self):
+        print()

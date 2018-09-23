@@ -2,26 +2,26 @@ class MaquinaRegras:
     def __init__(self):
         pass
 
-def validaMovimentacao():
-    print("Movimenta")
+    def validaMovimentacao(self):
+        print("Movimenta")
 
-def validaRoque():
-    print("Roque")
+    def validaRoque(self):
+        print("Roque")
 
-def validaEnPassant():
-    print("EnPassant")
+    def validaEnPassant(self):
+        print("EnPassant")
 
-def validaEmpate():
-    print("Empate")
+    def validaEmpate(self):
+        print("Empate")
 
-def validaPromocao():
-    print("Promove")
+    def validaPromocao(self):
+        print("Promove")
 
-def validaCaptura():
-    print("Captura")
+    def validaCaptura(self):
+        print("Captura")
 
-def validaVitoria():
-    print("Vitoria")
+    def validaVitoria(self):
+        print("Vitoria")
 
-def validaCheque():
-    print("cheque")
+    def validaCheque(self):
+        print("cheque")
