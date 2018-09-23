@@ -7,6 +7,10 @@ tela = pygame.display.set_mode((1024,768))
 fim = False
 mouseEsquerdo = 1
 
+
+tabuleiroJogo = Tabuleiro()
+print(tabuleiroJogo.estado)
+
 while not fim:
 
     for evento in pygame.event.get():
