@@ -1,5 +1,7 @@
 import pygame
 import os
+from MaquinaRegras import validaMovimentacao
+
 class Tabuleiro:
     estado = [
         ["t", "h", "b", "k", "q", "b", "h", "t"],
@@ -36,10 +38,13 @@ class Tabuleiro:
         return self.estado[j][i]
 
     def movePeca(self, xOrigem,yOrigem,xDestino,yDestino):
-        print("mover")
+        peca = self.estado[xOrigem][yOrigem]
+        if (validaMovimentacao(self.estado, xOrigem, yOrigem, xDestino, yDestino)): #o valida movimento deve avaliar a peca e verificar se o movimento eh valido e possivel
+            self.removePeca(xOrigem, yOrigem) #caso o removePeca faca mais que apagar a peca, eh uma boa tirar por aqui msm... soh coloquei por facilidade de manutenção
+            self.estado[xDestino][yDestino] = peca
 
     def removePeca(self, x, y):
-        print("remover")
+        self.estado[x][y] = " "
 
     def trocarPeca(self, x, y):
         print("Trocar posicao")
