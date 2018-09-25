@@ -29,11 +29,19 @@ class Tabuleiro:
         print("Inverte")
 
     def mapeiaClique(self, x, y):
-        i = (x - self.offsetX)//self.casa
-        j = (y - self.offsetY)//self.casa
-        if i > 7 or j > 7:
+        i = (x - self.offsetX) // self.casa
+        j = (y - self.offsetY) // self.casa
+        if i < 0 or i > 7 or j < 0 or j > 7:
             return "casa inválida"
         return self.estado[j][i]
+
+    def desenhaPeca(self, i, j, peca):
+        x = i * self.casa + self.offsetX
+        y = j * self.casa + self.offsetY
+        sprite = pygame.image.load(os.path.join("assets", "sprites", peca))
+        return (y, x, sprite)
+
+
 
     def movePeca(self, xOrigem,yOrigem,xDestino,yDestino):
         print("mover")
