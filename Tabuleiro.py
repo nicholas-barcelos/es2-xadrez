@@ -1,6 +1,6 @@
 import pygame
 import os
-from MaquinaRegras import validaMovimentacao
+# from MaquinaRegras import validaMovimentacao
 
 class Tabuleiro:
     estado = [
@@ -18,11 +18,22 @@ class Tabuleiro:
     offsetX = 16
     offsetY = 40
 
-    def __init__(self):
+    def __init__(self, tela):
         self.sprite = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
-
-    def cria(self):
+        tela.blit(self.sprite, (0, 0))
+            
+    def cria(tela):
         print("Criar")
+        bsoldado = pygame.image.load(os.path.join("assets","sprites","bsoldier.png"))
+        wsoldado = pygame.image.load(os.path.join("assets","sprites","wsoldier.png"))
+        
+        x = 20
+        y = 30
+        for i in range (7):
+            print("tentando imprimir soldado ")
+            tela.blit(bsoldado, (x, y))
+            tela.blit(wsoldado, (x, y+60))
+            x +=20
 
     def destroi(self):
         print("Destruir")
@@ -36,13 +47,7 @@ class Tabuleiro:
         if i > 7 or j > 7:
             return "casa inválida"
         return self.estado[j][i]
-
-    def movePeca(self, xOrigem,yOrigem,xDestino,yDestino):
-        peca = self.estado[xOrigem][yOrigem]
-        if (validaMovimentacao(self.estado, xOrigem, yOrigem, xDestino, yDestino)): #o valida movimento deve avaliar a peca e verificar se o movimento eh valido e possivel
-            self.removePeca(xOrigem, yOrigem) #caso o removePeca faca mais que apagar a peca, eh uma boa tirar por aqui msm... soh coloquei por facilidade de manutenção
-            self.estado[xDestino][yDestino] = peca
-
+    
     def removePeca(self, x, y):
         self.estado[x][y] = " "
 
@@ -51,3 +56,12 @@ class Tabuleiro:
 
     def retornaPeca(self, x, y):
         print("Nao lembro")
+
+    
+"""
+    def movePeca(self, xOrigem,yOrigem,xDestino,yDestino):
+        peca = self.estado[xOrigem][yOrigem]
+        if (validaMovimentacao(self.estado, xOrigem, yOrigem, xDestino, yDestino)): #o valida movimento deve avaliar a peca e verificar se o movimento eh valido e possivel
+            self.removePeca(xOrigem, yOrigem) #caso o removePeca faca mais que apagar a peca, eh uma boa tirar por aqui msm... soh coloquei por facilidade de manutenção
+            self.estado[xDestino][yDestino] = peca
+"""

@@ -4,18 +4,17 @@ from Tabuleiro import Tabuleiro
 
 pygame.init()
 
-tela = pygame.display.set_mode((1024,768))
+tela = pygame.display.set_mode((640,480))
 fim = False
 mouseEsquerdo = 1
 
-
-tabuleiroJogo = Tabuleiro()
-print(tabuleiroJogo.estado)
-
 bg = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
 
+tabuleiroJogo = Tabuleiro(tela)
+Tabuleiro.cria(tela)
+print(tabuleiroJogo.estado)
+
 while not fim:
-    tela.blit(tabuleiroJogo.sprite, (0, 0))
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             fim = True
