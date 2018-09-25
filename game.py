@@ -10,8 +10,8 @@ mouseEsquerdo = 1
 
 bg = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
 
-tabuleiroJogo = Tabuleiro(tela)
-Tabuleiro.cria(tela)
+tabuleiroJogo = Tabuleiro()
+tabuleiroJogo.cria(tela)
 print(tabuleiroJogo.estado)
 
 while not fim:

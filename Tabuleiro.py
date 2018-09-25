@@ -18,22 +18,62 @@ class Tabuleiro:
     offsetX = 16
     offsetY = 40
 
-    def __init__(self, tela):
+    def __init__(self):
         self.sprite = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
-        tela.blit(self.sprite, (0, 0))
             
-    def cria(tela):
+    def cria(self, tela):
+        # TODO: SIMPLIFICAR PARA CARAMBOLAS ISSO DAQUI
+        # codigo estilo dojo que funciona
+        tela.blit(self.sprite, (0, 0))
         print("Criar")
-        bsoldado = pygame.image.load(os.path.join("assets","sprites","bsoldier.png"))
-        wsoldado = pygame.image.load(os.path.join("assets","sprites","wsoldier.png"))
+        print("Imprimindo soldados...")
+
+        for i in range (8):
+            bsoldado = self.desenhaPeca(i, 1, "bsoldier.png")
+            wsoldado = self.desenhaPeca(i, 6, "wsoldier.png")
+            tela.blit(bsoldado[2], (bsoldado[0], bsoldado[1]))
+            tela.blit(wsoldado[2], (wsoldado[0], wsoldado[1]))
         
-        x = 20
-        y = 30
-        for i in range (7):
-            print("tentando imprimir soldado ")
-            tela.blit(bsoldado, (x, y))
-            tela.blit(wsoldado, (x, y+60))
-            x +=20
+        btorre1 = self.desenhaPeca(0, 0, "btower.png")
+        btorre2 = self.desenhaPeca(7, 0, "btower.png")
+        wtorre1 = self.desenhaPeca(0, 7, "wtower.png")
+        wtorre2 = self.desenhaPeca(7, 7, "wtower.png")
+        tela.blit(btorre1[2], (btorre1[0], btorre1[1]))
+        tela.blit(btorre2[2], (btorre2[0], btorre2[1]))
+        tela.blit(wtorre1[2], (wtorre1[0], wtorre1[1]))
+        tela.blit(wtorre2[2], (wtorre2[0], wtorre2[1]))
+        
+        # Inicializar Cavalos
+        bcavalo1 = self.desenhaPeca(1, 0, "bhorse.png")
+        bcavalo2 = self.desenhaPeca(6, 0, "bhorse.png")
+        wcavalo1 = self.desenhaPeca(1, 7, "whorse.png")
+        wcavalo2 = self.desenhaPeca(6, 7, "whorse.png")
+        tela.blit(bcavalo1[2], (bcavalo1[0], bcavalo1[1]))
+        tela.blit(bcavalo2[2], (bcavalo2[0], bcavalo2[1]))
+        tela.blit(wcavalo1[2], (wcavalo1[0], wcavalo1[1]))
+        tela.blit(wcavalo2[2], (wcavalo2[0], wcavalo2[1]))
+        
+        
+        # Inicializar Bispos
+        bbispo1 = self.desenhaPeca(2, 0, "bbishop.png")
+        bbispo2 = self.desenhaPeca(5, 0, "bbishop.png")
+        wbispo1 = self.desenhaPeca(2, 7, "wbishop.png")
+        wbispo2 = self.desenhaPeca(5, 7, "wbishop.png")
+        tela.blit(bbispo1[2], (bbispo1[0], bbispo1[1]))
+        tela.blit(bbispo2[2], (bbispo2[0], bbispo2[1]))
+        tela.blit(wbispo1[2], (wbispo1[0], wbispo1[1]))
+        tela.blit(wbispo2[2], (wbispo2[0], wbispo2[1]))
+        
+        brainha = self.desenhaPeca(3, 0, "bqueen.png")
+        tela.blit(brainha[2], (brainha[0], brainha[1]))
+        wrainha = self.desenhaPeca(4, 7, "wqueen.png")
+        tela.blit(wrainha[2], (wrainha[0], wrainha[1]))
+        
+        brei = self.desenhaPeca(4, 0, "bking.png")
+        tela.blit(brei[2], (brei[0], brei[1]))
+        wrei = self.desenhaPeca(3, 7, "wking.png")
+        tela.blit(wrei[2], (wrei[0], wrei[1]))
+        
 
     def destroi(self):
         print("Destruir")
@@ -47,6 +87,12 @@ class Tabuleiro:
         if i > 7 or j > 7:
             return "casa inválida"
         return self.estado[j][i]
+    
+    def desenhaPeca(self, i, j, peca):
+        x = i * self.casa + self.offsetX
+        y = j * self.casa + self.offsetY
+        sprite = pygame.image.load(os.path.join("assets", "sprites", peca))
+        return (x, y, sprite)
     
     def removePeca(self, x, y):
         self.estado[x][y] = " "
