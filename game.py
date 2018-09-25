@@ -12,7 +12,7 @@ mouseEsquerdo = 1
 tabuleiroJogo = Tabuleiro()
 print(tabuleiroJogo.estado)
 
-bg = pygame.image.load(os.path.join("assets", "sprites", "background.gif"))
+bg = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
 
 while not fim:
     tela.blit(tabuleiroJogo.sprite, (0, 0))

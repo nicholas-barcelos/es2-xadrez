@@ -17,7 +17,7 @@ class Tabuleiro:
     offsetY = 40
 
     def __init__(self):
-        self.sprite = pygame.image.load(os.path.join("assets", "sprites", "background.gif"))
+        self.sprite = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
 
     def cria(self):
         print("Criar")
