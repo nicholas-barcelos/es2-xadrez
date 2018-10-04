@@ -8,7 +8,7 @@ class Tabuleiro:
         ["p", "p", "p", "p", "p", "p", "p", "p"],
         [" ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", "p", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " "],
         ["P", "P", "P", "P", "P", "P", "P", "P"],
         ["T", "H", "B", "Q", "K", "B", "H", "T"]
@@ -21,6 +21,9 @@ class Tabuleiro:
     offsetX = 16
     offsetY = 40
 
+    #Posicao do Rei para verificar o cheque
+    rei = [7,4]
+
     def __init__(self):
         pass
 
@@ -32,16 +35,18 @@ class Tabuleiro:
 
     def manipulaClique(self, x, y):
         pecaClicada = self.estado[x][y]
-        print("peca clicada: ", pecaClicada)
-        print("peca selec: ", self.pecaSelecionada)
-
+        print('x: ', x, " y: ", y)
         if(pecaClicada.isupper()):
             self.pecaSelecionada = pecaClicada
             self.xSelecionado = x
             self.ySelecionado = y
             return False
         elif(self.pecaSelecionada != " "):
-            return self.movePeca(x, y)
+            tentativa = self.movePeca(x, y)
+            if(tentativa and pecaClicada == "K"):
+                self.rei[0] = x
+                self.rei[1] = y
+            return tentativa
         return False
 
     def removePeca(self, x, y):
@@ -56,10 +61,14 @@ class Tabuleiro:
     def movePeca(self, xDestino, yDestino):
         if (MaquinaRegras.validaMovimentacao(self.xSelecionado, self.ySelecionado, xDestino, yDestino, self.estado)):
             self.estado[xDestino][yDestino] = self.estado[self.xSelecionado][self.ySelecionado]
+            if(not MaquinaRegras.verificaCheque(self.rei, self.estado)):
+                self.estado[xDestino][yDestino] = " "
+                print("Rei em Cheque")
+                return False
             self.estado[self.xSelecionado][self.ySelecionado] = " "
             self.pecaSelecionada = " "
-            print("Pode Movimntar")
+            print("Pode Movimentar")
             return True
-        print("Não pode Movimntar")
+        print("Não pode Movimentar")
         return False
 
