@@ -3,6 +3,7 @@ import os
 import pygame
 
 from Tabuleiro import Tabuleiro
+from Cemiterio import Cemiterio
 
 class Interface:
     tabuleiro = None
@@ -39,9 +40,8 @@ class Interface:
         print("Retornou False")
         return self.tabuleiro.estado[j][i]
 
-    #desenha a peca na posicao correspondente
-    def desenhaPosicao(self, i, j):
-        peca = self.tabuleiro.estado[j][i]
+    # retorna imagem da peça baseado no nome lógico dela
+    def imagemPeca(self, peca):
         imagem = None
         if(peca == " ") : return
         elif( peca == "p") : imagem = "bsoldier.png"
@@ -56,16 +56,21 @@ class Interface:
         elif (peca == "K") : imagem = "wking.png"
         elif (peca == "q") : imagem = "bqueen.png"
         elif (peca == "Q") : imagem = "wqueen.png"
+        return pygame.image.load(os.path.join("assets", "sprites", imagem))
+
+    #desenha a peca na posicao correspondente
+    def desenhaPosicao(self, i, j):
+        peca = self.tabuleiro.estado[j][i]
 
         x = i * self.casa + self.offsetX
         y = j * self.casa + self.offsetY
-        sprite = pygame.image.load(os.path.join("assets", "sprites", imagem))
+        sprite = imagemPeca(peca)
         self.tela.blit(sprite, (x, y))
 
     def desenhaPeca(self, i, j, peca):
         x = i * self.casa + self.offsetX
         y = j * self.casa + self.offsetY
-        sprite = pygame.image.load(os.path.join("assets", "sprites", peca))
+        sprite = imagemPeca(peca)
         return (x, y, sprite)
 
     def mostrar(self):
@@ -91,3 +96,34 @@ class Interface:
 
     def tabuleiro(self):
         print()
+
+        # peca: peca a ser desenhada
+        # qtd: numero a ser desenhado embaixo da peca
+        # pos: posicao que a imagemzinha da peca sera desenhada, tipo: linha1: peca1 peca2 peca3
+        #                                                              linha2:     peca4 peca5
+        #flag: if true, a peca foi desenhada no cemiterio e so e necessario redesenhar o contador embaixo.
+    def desenhaCemiteroi(self, peca, qtd, pos, flag):
+        fonte = pygame.font.Font(os.path.join("assets", "fontes", "aseprite-remix.ttf"), 8)
+        text = font.render("Qtd: " + str(qtd), True, (0, 0, 0))
+        if peca.isupper():
+            if flag:
+                # Aumenta o contador de cima 
+                return
+            sprite = imagemPeca(peca)
+            #desenha na linha de cima
+            if (pos<3):
+               self.tela.blit(sprite, ((455 + (pos*55)), 304))
+            else:
+                self.tela.blit(sprite, ((475 + ((pos-3)*60)), 147))
+            return
+        if peca.islower():
+            if flag:
+                # Aumenta o contador de baixo
+                return
+            if (pos<3):
+               self.tela.blit(sprite, ((455 + (pos*55)), 304))
+            else:
+                self.tela.blit(sprite, ((475 + ((pos-3)*60)), 372))
+            return
+        print("Como você chegou até aqui?")
+

@@ -20,7 +20,7 @@ class MaquinaRegras:
         if (deslocHor < 0): deslocHor *= -1
         if (deslocVer < 0): deslocVer *= -1
 
-        #Movimento do REI e do Cavaalo:
+        #Movimento do REI e do Cavalo:
         if (peca == "K"):
             if (deslocHor < 2 and deslocVer < 2):
                 return True
