@@ -1,7 +1,7 @@
 import pygame
 import os
-from MaquinaRegras import MaquinaRegras
-from Interface import Inteface
+# from MaquinaRegras import MaquinaRegras
+from Interface import Interface
 
 '''
 Fonte:
@@ -13,7 +13,7 @@ class Cemiterio:
 
     #Dicionário de peças, "nome":qtd
     covas = {}
-
+    interface = Interface()
     # pra poder imprimir os amiguinhos no local certo
     qtdAlto = -1
     qtdBaixo = -1
@@ -24,22 +24,22 @@ class Cemiterio:
 
     def adicionaPeca(self, peca):
         if peca.isupper():
-            qtdAlto++
+            self.qtdAlto+=1
         else:
-            qtdBaixo++
+            self.qtdBaixo+=1
 
-        if peca in covas:
-            covas[peca] = covas[peca] + 1
-            desenhaCemiteroi(peca, True)
+        if peca in self.covas:
+            self.covas[peca] += 1
+            self.interface.desenhaCemiterio(peca, True)
             #aumenta o contador embaixo da peça
         else:
-            covas[peca] = 1
+            self,covas[peca] = 1
             sprite = pygame.image.load(os.path.join("assets", "sprites", peca)) #acho que essa funcao nao vai prestar pra pintar no cemiterio
-            desenhaCemiteroi(peca, False)
+            self.interface.desenhaCemiterio(peca, False)
             #cria um contador embaixo da peça
 
     def removePeca(self, peca):
-        if peca in covas:
-            covas[peca] = covas[peca] - 1
+        if peca in self.covas:
+            self.covas[peca] -= 1
         else:
             print("Esta peca não está no cemitério. Pare.")

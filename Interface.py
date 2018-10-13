@@ -3,7 +3,7 @@ import os
 import pygame
 
 from Tabuleiro import Tabuleiro
-from Cemiterio import Cemiterio
+# from Cemiterio import Cemiterio
 
 class Interface:
     tabuleiro = None
@@ -13,8 +13,8 @@ class Interface:
     offsetX = 16
     offsetY = 40
 
-    def __init__(self, vertical, horizontal):
-        self.tela = pygame.display.set_mode((640,480))
+    def __init__(self, vertical=480, horizontal=640):
+        self.tela = pygame.display.set_mode((horizontal,vertical))
         self.tabuleiro = Tabuleiro()
         self.sprite = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
 
@@ -64,13 +64,13 @@ class Interface:
 
         x = i * self.casa + self.offsetX
         y = j * self.casa + self.offsetY
-        sprite = imagemPeca(peca)
+        sprite = self.imagemPeca(peca)
         self.tela.blit(sprite, (x, y))
 
     def desenhaPeca(self, i, j, peca):
         x = i * self.casa + self.offsetX
         y = j * self.casa + self.offsetY
-        sprite = imagemPeca(peca)
+        sprite = self.imagemPeca(peca)
         return (x, y, sprite)
 
     def mostrar(self):
@@ -102,14 +102,14 @@ class Interface:
         # pos: posicao que a imagemzinha da peca sera desenhada, tipo: linha1: peca1 peca2 peca3
         #                                                              linha2:     peca4 peca5
         #flag: if true, a peca foi desenhada no cemiterio e so e necessario redesenhar o contador embaixo.
-    def desenhaCemiteroi(self, peca, qtd, pos, flag):
+    def desenhaCemiterio(self, peca, qtd, pos, flag):
         fonte = pygame.font.Font(os.path.join("assets", "fontes", "aseprite-remix.ttf"), 8)
-        text = font.render("Qtd: " + str(qtd), True, (0, 0, 0))
+        text = fonte.render("Qtd: " + str(qtd), True, (0, 0, 0))
         if peca.isupper():
             if flag:
                 # Aumenta o contador de cima 
                 return
-            sprite = imagemPeca(peca)
+            sprite = self.imagemPeca(peca)
             #desenha na linha de cima
             if (pos<3):
                self.tela.blit(sprite, ((455 + (pos*55)), 304))
