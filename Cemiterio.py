@@ -33,7 +33,7 @@ class Cemiterio:
             self.interface.desenhaCemiterio(peca, True)
             #aumenta o contador embaixo da peça
         else:
-            self,covas[peca] = 1
+            self.covas[peca] = 1
             sprite = pygame.image.load(os.path.join("assets", "sprites", peca)) #acho que essa funcao nao vai prestar pra pintar no cemiterio
             self.interface.desenhaCemiterio(peca, False)
             #cria um contador embaixo da peça

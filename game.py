@@ -9,7 +9,7 @@ mouseEsquerdo = 1
 
 bg = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
 
-interface = Interface(640, 480)
+interface = Interface(480, 640)
 interface.cria()
 
 while not fim:

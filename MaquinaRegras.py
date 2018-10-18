@@ -63,13 +63,15 @@ class MaquinaRegras:
 
     @staticmethod
     def verificaColisaoDiagonal(xOrigem, yOrigem, xDestino, yDestino, estado):
-        x = min(xOrigem, xDestino) + 1
-        y = min(yOrigem, yDestino) + 1
-        while (y < max(yDestino, yOrigem)):
-            if (estado[x][y] != " "):
-                return estado[x][y]
-            x += 1
-            y += 1
+        passoX = 1 if (xOrigem < xDestino) else -1
+        passoY = 1 if (yOrigem < yDestino) else -1
+        xOrigem = xOrigem + passoX
+        yOrigem = yOrigem + passoY
+        while (yOrigem != yDestino):
+            if (estado[xOrigem][yOrigem] != " "):
+                return estado[xOrigem][yOrigem]
+            xOrigem = xOrigem + passoX
+            yOrigem = yOrigem + passoY
         return " "
 
     @staticmethod

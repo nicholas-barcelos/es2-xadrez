@@ -1,5 +1,4 @@
-import pygame
-import os
+
 from MaquinaRegras import MaquinaRegras
 
 class Tabuleiro:

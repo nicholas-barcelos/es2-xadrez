@@ -34,8 +34,10 @@ class Interface:
         j = (y - self.offsetY)//self.casa
         if i > 7 or j > 7:
             return "casa inválida"
+        pecaClicada = self.tabuleiro.estado[j][i]
         if(self.tabuleiro.manipulaClique(j,i)):
-            print("Retornou True")
+            if(pecaClicada != " "):
+                print("===PECA CAPTURADA!!===")
             self.cria()
         print("Retornou False")
         return self.tabuleiro.estado[j][i]
@@ -65,7 +67,8 @@ class Interface:
         x = i * self.casa + self.offsetX
         y = j * self.casa + self.offsetY
         sprite = self.imagemPeca(peca)
-        self.tela.blit(sprite, (x, y))
+        if(sprite != None):
+            self.tela.blit(sprite, (x, y))
 
     def desenhaPeca(self, i, j, peca):
         x = i * self.casa + self.offsetX
@@ -105,11 +108,12 @@ class Interface:
     def desenhaCemiterio(self, peca, qtd, pos, flag):
         fonte = pygame.font.Font(os.path.join("assets", "fontes", "aseprite-remix.ttf"), 8)
         text = fonte.render("Qtd: " + str(qtd), True, (0, 0, 0))
+        sprite = self.imagemPeca(peca)
+
         if peca.isupper():
             if flag:
                 # Aumenta o contador de cima 
                 return
-            sprite = self.imagemPeca(peca)
             #desenha na linha de cima
             if (pos<3):
                self.tela.blit(sprite, ((455 + (pos*55)), 304))
