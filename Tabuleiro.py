@@ -1,5 +1,6 @@
 
 from MaquinaRegras import MaquinaRegras
+from Cemiterio import Cemiterio
 
 class Tabuleiro:
     estado = [
@@ -19,12 +20,14 @@ class Tabuleiro:
     casa = dimensao // 8
     offsetX = 16
     offsetY = 40
-
     #Posicao do Rei para verificar o cheque
     rei = [7,4]
+    cemiterioPlayer = None
+    cemiterioMaquina = None
 
     def __init__(self):
-        pass
+        self.cemiterioPlayer = Cemiterio()
+        self.cemiterioMaquina = Cemiterio()
 
     def destroi(self):
         print("Destruir")
@@ -42,9 +45,8 @@ class Tabuleiro:
             return False
         elif(self.pecaSelecionada != " "):
             tentativa = self.movePeca(x, y)
-            if(tentativa and pecaClicada == "K"):
-                self.rei[0] = x
-                self.rei[1] = y
+            if(tentativa and pecaClicada.islower()):
+                self.cemiterioMaquina.adicionaPeca(pecaClicada)
             return tentativa
         return False
 

@@ -3,7 +3,6 @@ import os
 import pygame
 
 from Tabuleiro import Tabuleiro
-# from Cemiterio import Cemiterio
 
 class Interface:
     tabuleiro = None
@@ -27,17 +26,20 @@ class Interface:
             y = estado[i].__len__()
             for j in range(y):
                 self.desenhaPosicao(j, i)
+        self.desenhaCemiterio(self.tabuleiro.cemiterioMaquina, 1)
+        self.desenhaCemiterio(self.tabuleiro.cemiterioPlayer, 2)
 
     #recebe o clique e passa para o tabuleiro manipular
     def mapeiaClique(self, x, y):
         i = (x - self.offsetX)//self.casa
         j = (y - self.offsetY)//self.casa
+        print("x = ", x, " y= ", y)
         if i > 7 or j > 7:
             return "casa inválida"
         pecaClicada = self.tabuleiro.estado[j][i]
         if(self.tabuleiro.manipulaClique(j,i)):
             if(pecaClicada != " "):
-                print("===PECA CAPTURADA!!===")
+                print("===PECA ",pecaClicada," CAPTURADA!!=== ")
             self.cria()
         print("Retornou False")
         return self.tabuleiro.estado[j][i]
@@ -70,11 +72,9 @@ class Interface:
         if(sprite != None):
             self.tela.blit(sprite, (x, y))
 
-    def desenhaPeca(self, i, j, peca):
-        x = i * self.casa + self.offsetX
-        y = j * self.casa + self.offsetY
+    def desenhaPeca(self, x, y, peca):
         sprite = self.imagemPeca(peca)
-        return (x, y, sprite)
+        self.tela.blit(sprite, (x, y))
 
     def mostrar(self):
         print()
@@ -100,7 +100,7 @@ class Interface:
     def tabuleiro(self):
         print()
 
-        # peca: peca a ser desenhada
+    """    # peca: peca a ser desenhada
         # qtd: numero a ser desenhado embaixo da peca
         # pos: posicao que a imagemzinha da peca sera desenhada, tipo: linha1: peca1 peca2 peca3
         #                                                              linha2:     peca4 peca5
@@ -121,13 +121,31 @@ class Interface:
                 self.tela.blit(sprite, ((475 + ((pos-3)*60)), 147))
             return
         if peca.islower():
+            print("Passou por aqui...")
             if flag:
                 # Aumenta o contador de baixo
                 return
-            if (pos<3):
-               self.tela.blit(sprite, ((455 + (pos*55)), 304))
+            if (pos==1):
+               self.tela.blit(sprite, (460, 70))
+            elif(pos == 2):
+                self.tela.blit(sprite, (515, 70))
+            elif (pos == 3):
+                self.tela.blit(sprite, (570, 70))
             else:
                 self.tela.blit(sprite, ((475 + ((pos-3)*60)), 372))
             return
-        print("Como você chegou até aqui?")
+        print("Como você chegou até aqui?")"""
 
+    #posicao diz se o cemiterio vai ser desenhado em cima ou em baixo... 1 = cima, 2 = baixo
+    def desenhaCemiterio(self,cemiterio, posicao):
+        x = 455
+        y = 300
+        if (posicao == 1): y = 70
+        cont = 1
+        for k in cemiterio.covas.keys():
+            if(cont == 4):
+                y += 60
+                x = 455
+            self.desenhaPeca(x, y, k)
+            x+=55
+            cont+=1

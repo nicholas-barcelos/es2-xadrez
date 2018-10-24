@@ -14,7 +14,8 @@ class MaquinaRegras:
                 and estado[xDestino][yDestino].islower()
                 and deslocVer > 0):
                 return True
-            if(((deslocVer == 1) or (xOrigem == 6 and deslocVer == 2)) and deslocHor == 0): return True
+            if(deslocVer == 1 and deslocHor == 0): return True
+            if((xOrigem == 6 or xOrigem == 1) and deslocVer == 2): return True
             return False
 
         if (deslocHor < 0): deslocHor *= -1
