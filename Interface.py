@@ -106,62 +106,27 @@ class Interface:
     def tabuleiro(self):
         print()
 
-    """    # peca: peca a ser desenhada
-        # qtd: numero a ser desenhado embaixo da peca
-        # pos: posicao que a imagemzinha da peca sera desenhada, tipo: linha1: peca1 peca2 peca3
-        #                                                              linha2:     peca4 peca5
-        #flag: if true, a peca foi desenhada no cemiterio e so e necessario redesenhar o contador embaixo.
-    def desenhaCemiterio(self, peca, qtd, pos, flag):
-        fonte = pygame.font.Font(os.path.join("assets", "fontes", "aseprite-remix.ttf"), 8)
-        text = fonte.render("Qtd: " + str(qtd), True, (0, 0, 0))
-        sprite = self.imagemPeca(peca)
-
-        if peca.isupper():
-            if flag:
-                # Aumenta o contador de cima 
-                return
-            #desenha na linha de cima
-            if (pos<3):
-               self.tela.blit(sprite, ((455 + (pos*55)), 304))
-            else:
-                self.tela.blit(sprite, ((475 + ((pos-3)*60)), 147))
-            return
-        if peca.islower():
-            print("Passou por aqui...")
-            if flag:
-                # Aumenta o contador de baixo
-                return
-            if (pos==1):
-               self.tela.blit(sprite, (460, 70))
-            elif(pos == 2):
-                self.tela.blit(sprite, (515, 70))
-            elif (pos == 3):
-                self.tela.blit(sprite, (570, 70))
-            else:
-                self.tela.blit(sprite, ((475 + ((pos-3)*60)), 372))
-            return
-        print("Como você chegou até aqui?")"""
-
     #posicao diz se o cemiterio vai ser desenhado em cima ou em baixo... 1 = cima, 2 = baixo
     def desenhaCemiterio(self,cemiterio, posicao):
         x = 455
-        y = 300
-        if (posicao == 1): y = 70
+        yCima = 300
+        yBaixo = 70
         cont = 1
         if cemiterio.covas['brancas']:
             for k in cemiterio.covas['brancas'].keys():
                 if(cont == 4):
-                    y += 60
+                    yCima += 60
                     x = 455
-                self.desenhaPeca(x, y, k)
+                self.desenhaPeca(x, yCima, k)
                 x+=55
                 cont+=1
 
+        x = 455
         if cemiterio.covas['pretas']:
             for k in cemiterio.covas['pretas'].keys():
                 if(cont == 4):
-                    y += 60
+                    yBaixo += 60
                     x = 455
-                self.desenhaPeca(x, y, k)
+                self.desenhaPeca(x, yBaixo, k)
                 x+=55
                 cont+=1
