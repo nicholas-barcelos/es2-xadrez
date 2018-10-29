@@ -9,7 +9,7 @@ mouseEsquerdo = 1
 
 bg = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
 
-interface = Interface(480, 640)
+interface = Interface.pegaInstancia()
 interface.cria()
 
 while not fim:
@@ -20,5 +20,6 @@ while not fim:
         if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == mouseEsquerdo:
             print("Clique esquerdo - posição (%d,%d)" % evento.pos)
             print("Clique no tabuleiro - %s " % interface.mapeiaClique(evento.pos[0], evento.pos[1]))
+            print("estado tabuleiro\n", str(interface.tabuleiro))
 
         pygame.display.flip()
