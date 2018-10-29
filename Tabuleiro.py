@@ -59,7 +59,7 @@ class Tabuleiro:
     def manipulaClique(self, x, y):
         pecaClicada = self.estado[x][y]
         print('x: ', x, " y: ", y)
-        if(pecaClicada.isupper()):
+        if(pecaClicada.isupper() and self.pegaJogadorAtual()==1 or pecaClicada.islower() and self.pegaJogadorAtual()==2):
             self.pecaSelecionada = pecaClicada
             self.xSelecionado = x
             self.ySelecionado = y

@@ -9,7 +9,7 @@ class MaquinaRegras:
         deslocVer = xOrigem - xDestino
         deslocHor = yOrigem - yDestino
 
-        if(peca == "P" or peca == 'p'):
+        if(peca == "P" or peca == "p"):
             if((deslocHor == 1 or deslocHor == -1)
                 and estado[xDestino][yDestino].islower()
                 and deslocVer > 0):
