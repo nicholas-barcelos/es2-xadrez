@@ -9,7 +9,7 @@ class MaquinaRegras:
         deslocVer = xOrigem - xDestino
         deslocHor = yOrigem - yDestino
 
-        if(peca == "P"):
+        if(peca == "P" or peca == 'p'):
             if((deslocHor == 1 or deslocHor == -1)
                 and estado[xDestino][yDestino].islower()
                 and deslocVer > 0):
@@ -22,11 +22,11 @@ class MaquinaRegras:
         if (deslocVer < 0): deslocVer *= -1
 
         #Movimento do REI e do Cavalo:
-        if (peca == "K"):
+        if (peca == "K" or peca == 'k'):
             if (deslocHor < 2 and deslocVer < 2):
                 return True
             return False
-        if (peca == "H"):
+        if (peca == "H" or peca == 'h'):
             if ((deslocHor == 2 and deslocVer == 1) or (deslocHor == 1 and deslocVer == 2)):
                 return True
             return False
@@ -79,8 +79,11 @@ class MaquinaRegras:
     def verificaCheque(rei, estado):
         return True
 
-    def validaEnPassant(self):
-        print("EnPassant")
+    def validaEnPassant(xOrigem,yOrigem,peaoEnPassant, estado):
+        #caso o enPassant nâo tenha acontecido, ou não seja do turno passado ou seja de uma peça da mesma cor
+        if peaoEnPassant == [0,0,0] or peaoEnPassant[2]!= estado.contadorTurno-1 or estado[peaoEnPassant[0],peaoEnPassant[1]] == estado[xOrigem,yOrigem]: return False
+        if yOrigem == peaoEnPassant[1]+1 or yOrigem == peaoEnPassant[1]-1: return True
+        return False
 
     def validaEmpate(self):
         print("Empate")

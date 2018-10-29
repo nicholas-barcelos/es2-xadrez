@@ -2,7 +2,7 @@ import os
 
 import pygame
 
-from Tabuleiro import Tabuleiro
+import Tabuleiro as tb
 
 class Interface:
     tabuleiro = None
@@ -11,11 +11,18 @@ class Interface:
     casa = dimensao // 8
     offsetX = 16
     offsetY = 40
+    instancia = None
 
     def __init__(self, vertical=480, horizontal=640):
         self.tela = pygame.display.set_mode((horizontal,vertical))
-        self.tabuleiro = Tabuleiro()
+        self.tabuleiro = tb.Tabuleiro.pegaInstancia()
         self.sprite = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
+
+    @staticmethod
+    def pegaInstancia():
+        if not Interface.instancia:
+            Interface.instancia = Interface()
+        return Interface.instancia
 
     #desenha tela do jogo percorrendo o tabuleiro
     def cria(self):
@@ -26,8 +33,7 @@ class Interface:
             y = estado[i].__len__()
             for j in range(y):
                 self.desenhaPosicao(j, i)
-        self.desenhaCemiterio(self.tabuleiro.cemiterioMaquina, 1)
-        self.desenhaCemiterio(self.tabuleiro.cemiterioPlayer, 2)
+        self.desenhaCemiterio(self.tabuleiro.cemiterio, self.tabuleiro.pegaJogadorAtual())
 
     #recebe o clique e passa para o tabuleiro manipular
     def mapeiaClique(self, x, y):
@@ -142,10 +148,20 @@ class Interface:
         y = 300
         if (posicao == 1): y = 70
         cont = 1
-        for k in cemiterio.covas.keys():
-            if(cont == 4):
-                y += 60
-                x = 455
-            self.desenhaPeca(x, y, k)
-            x+=55
-            cont+=1
+        if cemiterio.covas['brancas']:
+            for k in cemiterio.covas['brancas'].keys():
+                if(cont == 4):
+                    y += 60
+                    x = 455
+                self.desenhaPeca(x, y, k)
+                x+=55
+                cont+=1
+
+        if cemiterio.covas['pretas']:
+            for k in cemiterio.covas['pretas'].keys():
+                if(cont == 4):
+                    y += 60
+                    x = 455
+                self.desenhaPeca(x, y, k)
+                x+=55
+                cont+=1
