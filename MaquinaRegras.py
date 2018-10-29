@@ -9,13 +9,22 @@ class MaquinaRegras:
         deslocVer = xOrigem - xDestino
         deslocHor = yOrigem - yDestino
 
-        if(peca == "P" or peca == "p"):
+        if(peca == "P"):
             if((deslocHor == 1 or deslocHor == -1)
                 and estado[xDestino][yDestino].islower()
-                and deslocVer > 0):
+                and deslocVer > -1):
                 return True
             if(deslocVer == 1 and deslocHor == 0): return True
             if((xOrigem == 6 or xOrigem == 1) and deslocVer == 2): return True
+            return False
+
+        if (peca == "p"):
+            if ((deslocHor == 1 or deslocHor == -1)
+                    and not estado[xDestino][yDestino].islower()
+                    and deslocVer > 1):
+                return True
+            if (deslocVer == -1 and deslocHor == 0): return True
+            if ((xOrigem == 6 or xOrigem == 1) and deslocVer == 2): return True
             return False
 
         if (deslocHor < 0): deslocHor *= -1
