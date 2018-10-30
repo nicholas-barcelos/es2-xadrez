@@ -67,7 +67,7 @@ class Tabuleiro:
             return False
         elif(self.pecaSelecionada != " "):
             tentativa = self.movePeca(x, y)
-            if(tentativa is False and self.estado[x][y].lower == 'p'):
+            if(tentativa is True and self.estado[x][y].lower == 'p'):
                 tentativa = self.enPassant(x,y)
             if(tentativa and pecaClicada != " "):
                 self.cemiterio.adicionaPeca(pecaClicada, self)

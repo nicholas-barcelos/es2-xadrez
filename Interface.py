@@ -122,6 +122,7 @@ class Interface:
                 cont+=1
 
         x = 455
+        cont=1
         if cemiterio.covas['pretas']:
             for k in cemiterio.covas['pretas'].keys():
                 if(cont == 4):
