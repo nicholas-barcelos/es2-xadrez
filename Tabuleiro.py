@@ -91,6 +91,7 @@ class Tabuleiro:
             self.estado[self.xSelecionado][self.ySelecionado] = " "
             self.pecaSelecionada = " "
             print("Pode Movimentar")
+            mr.MaquinaRegras.validaPromocao(self.estado, xDestino, yDestino)
             self.avancaTurno()
             return True
         elif (mr.MaquinaRegras.validaEnPassant(self.xSelecionado,self.ySelecionado,xDestino,yDestino,self.peaoEnPassant,self.estado)):

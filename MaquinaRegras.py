@@ -115,8 +115,20 @@ class MaquinaRegras:
     def validaEmpate(self):
         print("Empate")
 
-    def validaPromocao(self):
-        print("Promove")
+    @staticmethod
+    def validaPromocao(estado, xPeca, yPeca):
+        print("chamou promocao %s %d %d" % (estado[xPeca][yPeca], xPeca, yPeca))
+        if estado[xPeca][yPeca] == "p" and xPeca == 7:
+            print("promove")
+            escolha = "q"
+            estado[xPeca][yPeca] = escolha.lower()
+            return True
+        if estado[xPeca][yPeca] == "P" and xPeca == 0:
+            print("PROMOVE")
+            escolha = "q"
+            estado[xPeca][yPeca] = escolha.upper()
+            return True
+        return False
 
     def validaCaptura(self):
         print("Captura")
