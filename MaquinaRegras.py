@@ -4,27 +4,22 @@ class MaquinaRegras:
 
     #Metodo que verifica se a movimentacao eh valida (soh se usa o maiusculo pq a ia ira inverter o tabuleiro para ficar mais pratico)
     @staticmethod
-    def validaMovimentacao(xOrigem, yOrigem, xDestino, yDestino, estado):
+    def validaMovimentacao(xOrigem, yOrigem, xDestino, yDestino, estado, turno):
         peca = estado[xOrigem][yOrigem]
         deslocVer = xOrigem - xDestino
         deslocHor = yOrigem - yDestino
 
+        if(turno == 2):
+            peca = peca.upper()
+            if(peca == "P"): deslocVer *= -1
+
         if(peca == "P"):
             if((deslocHor == 1 or deslocHor == -1)
-                and estado[xDestino][yDestino].islower()
-                and deslocVer > -1):
+                and estado[xDestino][yDestino] != " "
+                and deslocVer == 1):
                 return True
-            if(deslocVer == 1 and deslocHor == 0): return True
+            if(deslocVer == 1 and deslocHor == 0 and estado[xDestino][yDestino] == " "): return True
             if((xOrigem == 6 or xOrigem == 1) and deslocVer == 2): return True
-            return False
-
-        if (peca == "p"):
-            if ((deslocHor == 1 or deslocHor == -1)
-                    and not estado[xDestino][yDestino].islower()
-                    and deslocVer > 1):
-                return True
-            if (deslocVer == -1 and deslocHor == 0): return True
-            if ((xOrigem == 6 or xOrigem == 1) and deslocVer == 2): return True
             return False
 
         if (deslocHor < 0): deslocHor *= -1

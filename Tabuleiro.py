@@ -59,7 +59,8 @@ class Tabuleiro:
     def manipulaClique(self, x, y):
         pecaClicada = self.estado[x][y]
         print('x: ', x, " y: ", y)
-        if(pecaClicada.isupper() and self.pegaJogadorAtual()==1 or pecaClicada.islower() and self.pegaJogadorAtual()==2):
+        if(pecaClicada.isupper() and self.pegaJogadorAtual()==1
+            or pecaClicada.islower() and self.pegaJogadorAtual()==2):
             self.pecaSelecionada = pecaClicada
             self.xSelecionado = x
             self.ySelecionado = y
@@ -68,7 +69,7 @@ class Tabuleiro:
             tentativa = self.movePeca(x, y)
             if(tentativa is False and self.estado[x][y].lower == 'p'):
                 tentativa = self.enPassant(x,y)
-            if(tentativa and pecaClicada.islower()):
+            if(tentativa and pecaClicada != " "):
                 self.cemiterio.adicionaPeca(pecaClicada, self)
             return tentativa
         return False
@@ -83,7 +84,7 @@ class Tabuleiro:
         print("Nao lembro")
 
     def movePeca(self, xDestino, yDestino):
-        if (mr.MaquinaRegras.validaMovimentacao(self.xSelecionado, self.ySelecionado, xDestino, yDestino, self.estado)):
+        if (mr.MaquinaRegras.validaMovimentacao(self.xSelecionado, self.ySelecionado, xDestino, yDestino, self.estado, self.pegaJogadorAtual())):
             self.estado[xDestino][yDestino] = self.estado[self.xSelecionado][self.ySelecionado]
             if(not mr.MaquinaRegras.verificaCheque(self.rei, self.estado)):
                 self.estado[xDestino][yDestino] = " "
