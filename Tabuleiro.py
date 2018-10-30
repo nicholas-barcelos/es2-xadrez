@@ -22,8 +22,10 @@ class Tabuleiro:
     offsetY = 40
     #Posicao do Rei para verificar o cheque
     rei = [7,4]
+    rei2= [0,3]
+    peaoEnPassant = [0,0,0]#recebendo [x,y,turno]
     jogador = None
-    contadorTurno = 0;
+    contadorTurno = 0
     cemiterio = None
 
     def __init__(self):
@@ -57,13 +59,15 @@ class Tabuleiro:
     def manipulaClique(self, x, y):
         pecaClicada = self.estado[x][y]
         print('x: ', x, " y: ", y)
-        if(pecaClicada.isupper()):
+        if(pecaClicada.isupper() and self.pegaJogadorAtual()==1 or pecaClicada.islower() and self.pegaJogadorAtual()==2):
             self.pecaSelecionada = pecaClicada
             self.xSelecionado = x
             self.ySelecionado = y
             return False
         elif(self.pecaSelecionada != " "):
             tentativa = self.movePeca(x, y)
+            if(tentativa is False and self.estado[x][y].lower == 'p'):
+                tentativa = self.enPassant(x,y)
             if(tentativa and pecaClicada.islower()):
                 self.cemiterio.adicionaPeca(pecaClicada, self)
             return tentativa
@@ -92,4 +96,19 @@ class Tabuleiro:
             return True
         print("Não pode Movimentar")
         return False
+
+    def enPassant(self,xDestino,yDestino):
+        if mr.MaquinaRegras.validaEnPassant(self.xSelecionado,self.ySelecionado,self.peaoEnPassant,self.estado):
+            if(not mr.MaquinaRegras.verificaCheque(self.rei, self.estado)):
+                self.estado[xDestino][yDestino] = " "
+                print("Rei em Cheque")
+                return False
+            self.estado[xDestino][yDestino] = self.estado[self.xSelecionado][self.ySelecionado]
+            self.estado[self.xSelecionado][self.ySelecionado] = " "
+            self.estado[self.peaoEnPassant[0]][self.peaoEnPassant[1]] = " "
+            self.peaoEnPassant = [0,0,0]
+            return True
+        return False
+
+
 
