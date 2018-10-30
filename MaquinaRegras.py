@@ -83,9 +83,32 @@ class MaquinaRegras:
     def verificaCheque(rei, estado):
         return True
 
-    def validaEnPassant(xOrigem,yOrigem,peaoEnPassant, estado):
-        #caso o enPassant nâo tenha acontecido, ou não seja do turno passado ou seja de uma peça da mesma cor
-        if peaoEnPassant == [0,0,0] or peaoEnPassant[2]!= estado.contadorTurno-1 or estado[peaoEnPassant[0],peaoEnPassant[1]] == estado[xOrigem,yOrigem]: return False
+
+    def validaEnPassant(xOrigem,yOrigem,xDestino,yDestino,peaoEnPassant, estado):
+        #so entra caso seja um peão
+        if(estado[xOrigem][yOrigem].lower =='p'):
+            #caso o enPassant nâo tenha acontecido, ou não seja do turno passado ou seja de uma peça da mesma cor
+            if peaoEnPassant == [0,0,0] or peaoEnPassant[2]!= estado.contadorTurno-1 or estado[peaoEnPassant[0],peaoEnPassant[1]] == estado[xOrigem,yOrigem]:
+                return False
+            peca = estado[xOrigem][yOrigem]
+            deslocVer = xOrigem - xDestino
+            deslocHor = yOrigem - yDestino
+
+            if((deslocHor == 1 and deslocVer == 1) and peaoEnPassant[0]==xOrigem-1 and peaoEnPassant[1]==yOrigem):
+                #caso pB branco come
+                return True
+            elif((deslocHor == -1 and deslocVer == -1)and peaoEnPassant[0]==xOrigem+1 and peaoEnPassant[1]==yOrigem):
+                #caso pB preto come
+                return True
+            elif((deslocHor == 1 and deslocVer == -1)and peaoEnPassant[0]==xOrigem+1 and peaoEnPassant[1]==yOrigem):
+                #caso Bp preto come
+                return True
+            elif((deslocHor == -1 and deslocVer == 1)and peaoEnPassant[0]==xOrigem+1 and peaoEnPassant[1]==yOrigem):
+                #caso Bp branco come
+                return True
+            else:
+                return False
+
         if yOrigem == peaoEnPassant[1]+1 or yOrigem == peaoEnPassant[1]-1: return True
         return False
 

@@ -67,8 +67,6 @@ class Tabuleiro:
             return False
         elif(self.pecaSelecionada != " "):
             tentativa = self.movePeca(x, y)
-            if(tentativa is True and self.estado[x][y].lower == 'p'):
-                tentativa = self.enPassant(x,y)
             if(tentativa and pecaClicada != " "):
                 self.cemiterio.adicionaPeca(pecaClicada, self)
             return tentativa
@@ -95,21 +93,20 @@ class Tabuleiro:
             print("Pode Movimentar")
             self.avancaTurno()
             return True
-        print("Não pode Movimentar")
-        return False
-
-    def enPassant(self,xDestino,yDestino):
-        if mr.MaquinaRegras.validaEnPassant(self.xSelecionado,self.ySelecionado,self.peaoEnPassant,self.estado):
+        elif (mr.MaquinaRegras.validaEnPassant(self.xSelecionado,self.ySelecionado,xDestino,yDestino,self.peaoEnPassant,self.estado)):
+            self.estado[xDestino][yDestino] = self.estado[self.xSelecionado][self.ySelecionado]
             if(not mr.MaquinaRegras.verificaCheque(self.rei, self.estado)):
                 self.estado[xDestino][yDestino] = " "
                 print("Rei em Cheque")
                 return False
-            self.estado[xDestino][yDestino] = self.estado[self.xSelecionado][self.ySelecionado]
-            self.estado[self.xSelecionado][self.ySelecionado] = " "
-            self.estado[self.peaoEnPassant[0]][self.peaoEnPassant[1]] = " "
-            self.peaoEnPassant = [0,0,0]
+            self.estado[self.xSelecionado][self.ySelecionado] = ' '
+            self.cemiterio.adicionaPeca(self.peaoEnPassant[2], self)
+            self.estado[self.peaoEnPassant[0]][self.peaoEnPassant[1]] = ' '
+            self.avancaTurno()
             return True
+        print("Não pode Movimentar")
         return False
+
 
 
 
