@@ -14,8 +14,8 @@ class Tabuleiro:
         ["T", "H", "B", "Q", "K", "B", "H", "T"]
     ]
     pecaSelecionada = " "
-    xSelecionado = None
-    ySelecionado = None
+    xSelecionado = 1
+    ySelecionado = 1
     dimensao = 400
     casa = dimensao // 8
     offsetX = 16
@@ -55,6 +55,9 @@ class Tabuleiro:
 
     def pegaJogadorAtual(self):
         return (self.contadorTurno % 2) + 1
+
+    def pegaPecaSelecionada(self):
+        return self.pecaSelecionada
 
     def manipulaClique(self, x, y):
         pecaClicada = self.estado[x][y]
@@ -108,6 +111,13 @@ class Tabuleiro:
         print("Não pode Movimentar")
         return False
 
-
-
-
+    def inverte(self):
+        tam = self.estado.__len__()
+        for x in range(int(tam/2)):
+            for y in range(tam):
+                peca = self.estado[x][y]
+                xInverso = tam - x - 1
+                yInverso = tam - y - 1
+                aux = self.estado[xInverso][yInverso]
+                self.estado[xInverso][yInverso] = peca
+                self.estado[x][y] = aux

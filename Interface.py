@@ -13,10 +13,15 @@ class Interface:
     offsetY = 40
     instancia = None
 
+    # Variaveis que dizem onde o Passaro do indicador vai ser desenhado
+    xIndicador = 510
+    yIndicador = 225
+
     def __init__(self, vertical=480, horizontal=640):
         self.tela = pygame.display.set_mode((horizontal,vertical))
         self.tabuleiro = tb.Tabuleiro.pegaInstancia()
         self.sprite = pygame.image.load(os.path.join("assets", "sprites", "background.png"))
+        self.spriteSelecionado = pygame.image.load(os.path.join("assets", "sprites", "highlight.png"))
 
     @staticmethod
     def pegaInstancia():
@@ -26,14 +31,21 @@ class Interface:
 
     #desenha tela do jogo percorrendo o tabuleiro
     def cria(self):
+        # desenha o background...
         self.tela.blit(self.sprite, (0, 0))
         estado = self.tabuleiro.estado
+
+        # funcao que realca lugar que esta selecionado
+        if(self.tabuleiro.pegaPecaSelecionada() != " "):
+            self.realcaLugar()
+
         x = estado.__len__()
         for i in range(x):
             y = estado[i].__len__()
             for j in range(y):
                 self.desenhaPosicao(j, i)
-        self.desenhaCemiterio(self.tabuleiro.cemiterio, self.tabuleiro.pegaJogadorAtual())
+        self.desenhaCemiterio(self.tabuleiro.cemiterio)
+        self.desenhaIndicadorDeTurno()
 
     #recebe o clique e passa para o tabuleiro manipular
     def mapeiaClique(self, x, y):
@@ -45,9 +57,9 @@ class Interface:
         pecaClicada = self.tabuleiro.estado[j][i]
         if(self.tabuleiro.manipulaClique(j,i)):
             if(pecaClicada != " "):
-                print("===PECA ",pecaClicada," CAPTURADA!!=== ")
-            self.cria()
+                print("===PECA ", pecaClicada, " CAPTURADA!!=== ")
         print("Retornou False")
+        self.cria()
         return self.tabuleiro.estado[j][i]
 
     # retorna imagem da peça baseado no nome lógico dela
@@ -107,7 +119,7 @@ class Interface:
         print()
 
     #posicao diz se o cemiterio vai ser desenhado em cima ou em baixo... 1 = cima, 2 = baixo
-    def desenhaCemiterio(self,cemiterio, posicao):
+    def desenhaCemiterio(self,cemiterio):
         x = 455
         yCima = 300
         yBaixo = 70
@@ -131,3 +143,17 @@ class Interface:
                 self.desenhaPeca(x, yBaixo, k)
                 x+=55
                 cont+=1
+
+    def desenhaIndicadorDeTurno(self):
+        indicadorDeTurno = "turnobaixo.png" if (self.tabuleiro.pegaJogadorAtual() == 1) else "turnocima.png"
+        spriteIndicador = pygame.image.load(os.path.join("assets", "sprites", indicadorDeTurno))
+        self.tela.blit(spriteIndicador, (self.xIndicador, self.yIndicador))
+
+    def realcaLugar(self):
+        x = self.tabuleiro.xSelecionado
+        y = self.tabuleiro.ySelecionado
+        i = x*self.casa + self.offsetY
+        j = y*self.casa + self.offsetX
+
+        self.tela.blit(self.spriteSelecionado, (j,i))
+        self.desenhaPosicao(x, y)
