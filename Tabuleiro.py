@@ -65,6 +65,11 @@ class Tabuleiro:
         if(pecaClicada.isupper() and self.pegaJogadorAtual()==1
             or pecaClicada.islower() and self.pegaJogadorAtual()==2):
             self.pecaSelecionada = pecaClicada
+            movimentosPossiveis = mr.MaquinaRegras.geraMovimentosPossiveis(x, y, self.estado, self.pegaJogadorAtual())
+            for i in movimentosPossiveis:
+                for j in i:
+                    print(j, end=' ')
+                print()
             self.xSelecionado = x
             self.ySelecionado = y
             return False
