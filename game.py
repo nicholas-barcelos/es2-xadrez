@@ -12,7 +12,7 @@ telaInicial = True
 
 # coisas de login
 tela = pygame.display.set_mode((640,480))
-sprite = pygame.image.load(os.path.join("assets", "sprites", "login.png"))
+sprite = pygame.image.load(os.path.join("assets", "sprites", "login1.png"))
 tela.blit(sprite, (0, 0))
 
 while telaInicial and not fim:
