@@ -1,6 +1,7 @@
-
+import copy
 import MaquinaRegras as mr
 import Cemiterio as grv
+import AI as ai
 class Tabuleiro:
     instancia = None
     estado = [
@@ -41,7 +42,7 @@ class Tabuleiro:
     def copiaInstancia():
         if not Tabuleiro.instancia:
             raise Exception('No instance error')
-        return Tabuleiro.instancia.copy()
+        return copy.deepcopy(Tabuleiro.instancia)
 
 
     def destroi(self):
@@ -52,6 +53,8 @@ class Tabuleiro:
 
     def avancaTurno(self):
         self.contadorTurno += 1
+        #if self.pegaJogadorAtual() == 2:
+        #   ai.AI.joga(self.pegaInstancia())
 
     def pegaJogadorAtual(self):
         return (self.contadorTurno % 2) + 1

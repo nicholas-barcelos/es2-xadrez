@@ -78,11 +78,11 @@ class Heuristica:
         ehBranca = peca.isupper()
         peca = peca.upper()
         valorPecas = {
-            "P": lambda: 10.0 + (peaoBrancoPosicoes[y][x] if ehBranca else peaoPretoPosicoes[y][x]),
-            "H": lambda: 30.0 + cavaloPosicoes[y][x],
-            "B": lambda: 30.0 + (bispoBrancoPosicoes[y][x] if ehBranca else bispoPretoPosicoes[y][x]),
-            "T": lambda: 50.0 + (torreBrancoPosicoes[y][x] if ehBranca else torrePretoPosicoes[y][x]),
-            "Q": lambda: 90.0 + rainhaPosicoes[y][x],
-            "K": lambda: 900.0 + (reiBrancoPosicoes[y][x] if ehBranca else reiPretoPosicoes[y][x])
+            "P": lambda: 10.0 + (Heuristica.peaoBrancoPosicoes[x][y] if ehBranca else Heuristica.peaoPretoPosicoes[x][y]),
+            "H": lambda: 30.0 + Heuristica.cavaloPosicoes[x][y],
+            "B": lambda: 30.0 + (Heuristica.bispoBrancoPosicoes[x][y] if ehBranca else Heuristica.bispoPretoPosicoes[x][y]),
+            "T": lambda: 50.0 + (Heuristica.torreBrancoPosicoes[x][y] if ehBranca else Heuristica.torrePretoPosicoes[x][y]),
+            "Q": lambda: 90.0 + Heuristica.rainhaPosicoes[x][y],
+            "K": lambda: 900.0 + (Heuristica.reiBrancoPosicoes[x][y] if ehBranca else Heuristica.reiPretoPosicoes[x][y])
         }
         return valorPecas[peca]() if ehBranca else -valorPecas[peca]()

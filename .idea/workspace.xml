@@ -4,6 +4,8 @@
     <list default="true" id="bc00e897-95af-4b7c-a820-92a9f9797469" name="Default Changelist" comment="#3 - Esboço de classes - arrumando referências">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Heuristica.py" beforeDir="false" afterPath="$PROJECT_DIR$/Heuristica.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tabuleiro.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tabuleiro.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,31 +17,33 @@
     <session id="744935780">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="17" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.22" value="1" />
-          <entry key="project.open.time.23" value="2" />
+          <entry key="project.open.time.23" value="3" />
           <entry key="project.open.time.4" value="5" />
+          <entry key="project.open.time.40" value="1" />
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="18" />
+          <entry key="project.opened" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="112" />
-          <entry key="Python" value="8321" />
+          <entry key="Python" value="9924" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="8321" />
+          <entry key="py" value="9924" />
           <entry key="txt" value="112" />
         </counts>
       </usages-collector>
@@ -89,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="34">
+              <caret line="9" column="39" lean-forward="true" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -101,8 +105,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MaquinaRegras.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1330">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="2145">
+              <caret line="143" column="152" selection-start-line="143" selection-start-column="152" selection-end-line="143" selection-end-column="152" />
             </state>
           </provider>
         </entry>
@@ -110,10 +114,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Tabuleiro.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1785">
-              <caret line="119" column="35" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="35" />
+            <state relative-caret-position="202">
+              <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
               <folding>
-                <element signature="e#1#27#0" expanded="true" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -131,7 +135,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Interface.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
+            <state relative-caret-position="1800">
               <caret line="124" column="14" selection-start-line="124" selection-start-column="14" selection-end-line="124" selection-end-column="14" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -143,12 +147,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="70" selection-start-line="16" selection-start-column="70" selection-end-line="16" selection-end-column="70" />
+            <state relative-caret-position="157">
+              <caret line="22" column="133" selection-start-line="22" selection-start-column="133" selection-end-line="22" selection-end-column="133" />
               <folding>
-                <element signature="e#0#17#0" expanded="true" />
-                <marker date="1542682025428" expanded="true" signature="394:485" ph="..." />
-                <marker date="1542682025428" expanded="true" signature="498:503" ph="..." />
+                <element signature="e#0#23#0" expanded="true" />
+                <marker date="1543020952910" expanded="true" signature="410:1113" ph="..." />
+                <marker date="1543020952910" expanded="true" signature="1126:1131" ph="..." />
               </folding>
             </state>
           </provider>
@@ -157,10 +161,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Heuristica.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="66" column="57" lean-forward="true" selection-start-line="66" selection-start-column="57" selection-end-line="66" selection-end-column="57" />
+            <state relative-caret-position="157">
+              <caret line="83" column="76" selection-start-line="83" selection-start-column="76" selection-end-line="83" selection-end-column="76" />
               <folding>
-                <marker date="1542659240400" expanded="true" signature="17:18" ph="..." />
+                <marker date="1543021221020" expanded="true" signature="17:18" ph="..." />
               </folding>
             </state>
           </provider>
@@ -183,10 +187,18 @@
       <find>pegapeca</find>
       <find>Posicao</find>
       <find>=\s+</find>
+      <find>mr.</find>
+      <find>!ehJogadorMax</find>
+      <find>avancaT</find>
+      <find>dep</find>
+      <find>Heuri</find>
+      <find>[y][x]</find>
     </findStrings>
     <replaceStrings>
       <replace>Posicoes</replace>
       <replace>=</replace>
+      <replace>not ehJogadorMax</replace>
+      <replace>[x][y]</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -200,10 +212,10 @@
         <option value="$PROJECT_DIR$/Cemiterio.py" />
         <option value="$PROJECT_DIR$/game.py" />
         <option value="$PROJECT_DIR$/Interface.py" />
-        <option value="$PROJECT_DIR$/Tabuleiro.py" />
         <option value="$PROJECT_DIR$/MaquinaRegras.py" />
-        <option value="$PROJECT_DIR$/Heuristica.py" />
         <option value="$PROJECT_DIR$/AI.py" />
+        <option value="$PROJECT_DIR$/Heuristica.py" />
+        <option value="$PROJECT_DIR$/Tabuleiro.py" />
       </list>
     </option>
   </component>
@@ -312,7 +324,7 @@
   <component name="ToolWindowManager">
     <frame x="60" y="0" width="1308" height="768" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15955766" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15928516" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -402,26 +414,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MaquinaRegras.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1330">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Interface.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
+        <state relative-caret-position="1800">
           <caret line="124" column="14" selection-start-line="124" selection-start-column="14" selection-end-line="124" selection-end-column="14" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -429,34 +424,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MaquinaRegras.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2145">
+          <caret line="143" column="152" selection-start-line="143" selection-start-column="152" selection-end-line="143" selection-end-column="152" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="9" column="39" lean-forward="true" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="70" selection-start-line="16" selection-start-column="70" selection-end-line="16" selection-end-column="70" />
+        <state relative-caret-position="157">
+          <caret line="22" column="133" selection-start-line="22" selection-start-column="133" selection-end-line="22" selection-end-column="133" />
           <folding>
-            <element signature="e#0#17#0" expanded="true" />
-            <marker date="1542682025428" expanded="true" signature="394:485" ph="..." />
-            <marker date="1542682025428" expanded="true" signature="498:503" ph="..." />
+            <element signature="e#0#23#0" expanded="true" />
+            <marker date="1543020952910" expanded="true" signature="410:1113" ph="..." />
+            <marker date="1543020952910" expanded="true" signature="1126:1131" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Heuristica.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="66" column="57" lean-forward="true" selection-start-line="66" selection-start-column="57" selection-end-line="66" selection-end-column="57" />
+        <state relative-caret-position="157">
+          <caret line="83" column="76" selection-start-line="83" selection-start-column="76" selection-end-line="83" selection-end-column="76" />
           <folding>
-            <marker date="1542659240400" expanded="true" signature="17:18" ph="..." />
+            <marker date="1543021221020" expanded="true" signature="17:18" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Tabuleiro.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="119" column="35" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="35" />
+        <state relative-caret-position="202">
+          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
           <folding>
-            <element signature="e#1#27#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
