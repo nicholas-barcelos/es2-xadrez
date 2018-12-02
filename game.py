@@ -40,6 +40,7 @@ while not fim:
         if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == mouseEsquerdo:
             print("Clique esquerdo - posição (%d,%d)" % evento.pos)
             print("Clique no tabuleiro - %s " % interface.mapeiaClique(evento.pos[0], evento.pos[1]))
+            print("Clique no botão de help? - %s " % interface.telaAjuda(evento.pos[0], evento.pos[1]))
             print("estado tabuleiro\n", str(interface.tabuleiro))
 
         pygame.display.flip()

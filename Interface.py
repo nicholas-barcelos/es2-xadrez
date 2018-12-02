@@ -100,17 +100,27 @@ class Interface:
     def atualizar(self):
         print()
 
-    def telaInicio(self):
-        print()
-
-    def telaCheque(self):
-        print()
-
     def telaDerrota(self):
-        print()
+        derrota = pygame.image.load(os.path.join("assets", "sprites", "gameover.png"))
+        self.tela.blit(derrota, (0, 0))
+        print("Derrota!")
 
     def telaVitoria(self):
-        print()
+        vitoria = pygame.image.load(os.path.join("assets", "sprites", "victory.png"))
+        self.tela.blit(vitoria, (0, 0))
+        print("Vitória!")
+
+    def telaEmpate(self):
+        empate = pygame.image.load(os.path.join("assets", "sprites", "empate.png"))
+        self.tela.blit(empate, (0, 0))
+        print("Empate!")
+
+    def telaAjuda(self, x, y):
+        if (((x > 594) and (x < 622)) and ((y > 7) and (y < 35))):
+            ajuda = pygame.image.load(os.path.join("assets", "sprites", "help.png"))
+            self.tela.blit(ajuda,(0, 0))
+            print("Tela de Ajuda aberta")
+        return
 
     def peca(self):
         print()
