@@ -44,6 +44,9 @@ class Tabuleiro:
             raise Exception('No instance error')
         return copy.deepcopy(Tabuleiro.instancia)
 
+    def copiaEstado(self):
+        return copy.deepcopy(self.estado)
+
 
     def destroi(self):
         print("Destruir")
@@ -53,8 +56,8 @@ class Tabuleiro:
 
     def avancaTurno(self):
         self.contadorTurno += 1
-        #if self.pegaJogadorAtual() == 2:
-        #   ai.AI.joga(self.pegaInstancia())
+        # if self.pegaJogadorAtual() == 2:
+        #    ai.joga(self.instancia)
 
     def pegaJogadorAtual(self):
         return (self.contadorTurno % 2) + 1

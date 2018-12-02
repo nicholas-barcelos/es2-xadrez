@@ -83,6 +83,7 @@ class Heuristica:
             "B": lambda: 30.0 + (Heuristica.bispoBrancoPosicoes[x][y] if ehBranca else Heuristica.bispoPretoPosicoes[x][y]),
             "T": lambda: 50.0 + (Heuristica.torreBrancoPosicoes[x][y] if ehBranca else Heuristica.torrePretoPosicoes[x][y]),
             "Q": lambda: 90.0 + Heuristica.rainhaPosicoes[x][y],
-            "K": lambda: 900.0 + (Heuristica.reiBrancoPosicoes[x][y] if ehBranca else Heuristica.reiPretoPosicoes[x][y])
+            "K": lambda: 900.0 + (Heuristica.reiBrancoPosicoes[x][y] if ehBranca else Heuristica.reiPretoPosicoes[x][y]),
+            " ": lambda: 0
         }
         return valorPecas[peca]() if ehBranca else -valorPecas[peca]()
