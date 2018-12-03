@@ -56,8 +56,8 @@ class Tabuleiro:
 
     def avancaTurno(self):
         self.contadorTurno += 1
-        # if self.pegaJogadorAtual() == 2:
-        #    ai.joga(self.instancia)
+        if self.pegaJogadorAtual() == 2:
+           ai.joga(self.instancia)
 
     def pegaJogadorAtual(self):
         return (self.contadorTurno % 2) + 1
