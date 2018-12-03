@@ -44,9 +44,6 @@ class Tabuleiro:
             raise Exception('No instance error')
         return copy.deepcopy(Tabuleiro.instancia)
 
-    def copiaEstado(self):
-        return copy.deepcopy(self.estado)
-
 
     def destroi(self):
         print("Destruir")
@@ -57,7 +54,7 @@ class Tabuleiro:
     def avancaTurno(self):
         self.contadorTurno += 1
         if self.pegaJogadorAtual() == 2:
-           ai.joga(self.instancia)
+           ai.joga(self.pegaInstancia())
 
     def pegaJogadorAtual(self):
         return (self.contadorTurno % 2) + 1
@@ -71,11 +68,11 @@ class Tabuleiro:
         if(pecaClicada.isupper() and self.pegaJogadorAtual()==1
             or pecaClicada.islower() and self.pegaJogadorAtual()==2):
             self.pecaSelecionada = pecaClicada
-            movimentosPossiveis = mr.MaquinaRegras.geraMovimentosPossiveis(x, y, self.estado, self.pegaJogadorAtual())
-            for i in movimentosPossiveis:
-                for j in i:
-                    print(j, end=' ')
-                print()
+            # movimentosPossiveis = mr.MaquinaRegras.geraMovimentosPossiveis(x, y, self.estado, self.pegaJogadorAtual())
+            # for i in movimentosPossiveis:
+            #     for j in i:
+            #         print(j, end=' ')
+            #     print()
             self.xSelecionado = x
             self.ySelecionado = y
             return False

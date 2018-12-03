@@ -1,6 +1,3 @@
-def isSameCase(a , b):
-    return ( a.isupper() and b.isupper ) or ( a.islower() and b.islower() )
-
 class MaquinaRegras:
     def __init__(self):
         pass
@@ -9,8 +6,6 @@ class MaquinaRegras:
     @staticmethod
     def validaMovimentacao(xOrigem, yOrigem, xDestino, yDestino, estado, turno):
         peca = estado[xOrigem][yOrigem]
-        print("Origem *** %s, %s***" % (xOrigem, yOrigem))
-        print("Destino *** %s, %s***" % (xDestino, yDestino))
         deslocVer = xOrigem - xDestino
         deslocHor = yOrigem - yDestino
 
@@ -40,14 +35,13 @@ class MaquinaRegras:
                 return True
             return False
 
-        if (deslocHor == 0 and (peca == "Q" or peca == "T")):
+        if(deslocHor == 0 and (peca == "Q" or peca == "T")):
             pecaColidida = MaquinaRegras.verificaColisaoVertical(xOrigem, xDestino, yOrigem, estado)
-            print("pecaColidida - %s" % pecaColidida)
             return pecaColidida == " "
-        elif (deslocVer == 0 and (peca == "Q" or peca == "T")):
+        elif(deslocVer == 0 and (peca == "Q" or peca == "T")):
             pecaColidida = MaquinaRegras.verificaColisaoHorizontal(yOrigem, yDestino, xOrigem, estado)
             return pecaColidida == " "
-        elif (deslocHor == deslocVer and (peca == "Q" or peca == "B")):
+        elif(deslocHor == deslocVer and (peca == "Q" or peca == "B")):
             pecaColidida = MaquinaRegras.verificaColisaoDiagonal(xOrigem,yOrigem, xDestino, yDestino,estado)
             return pecaColidida == " "
 
