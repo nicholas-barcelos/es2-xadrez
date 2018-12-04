@@ -47,8 +47,6 @@ class MaquinaRegras:
 
         return False
 
-    def validaRoque(self):
-        print("Roque")
 
     @staticmethod
     def verificaColisaoVertical(xOrigem, xDestino, y, estado):
@@ -79,14 +77,61 @@ class MaquinaRegras:
             yOrigem = yOrigem + passoY
         return " "
 
-    @staticmethod
-    def verificaCheque(rei, estado):
+
+    def verificaChequeMate(self,rei, estado,turno,chequeReis):
+        if estado[rei[0]][rei[1]]== "K" and chequeReis[1]:
+            movimentos = self.geraMovimentosPossiveis(rei[0],rei[1],estado,turno)
+            if(any(movimentos)): return False
+        if estado[rei[0]][rei[1]] == "k" and chequeReis[0]:
+            movimentos = self.geraMovimentosPossiveis(rei[0], rei[1], estado, turno)
+            if (any(movimentos)): return False
         return True
 
+    def verificaEmpate(self,numeroMovimentos,rei,estado, turno):
+        if(numeroMovimentos>=50):return True
+        if(turno>30 and self.geraMovimentosPossiveis(rei[0],rei[1],estado,turno)==[]): return True
+        return False
 
-    def validaEnPassant(xOrigem,yOrigem,xDestino,yDestino,peaoEnPassant, estado):
+
+    def validaRoque(self,xOrigem,yOrigem,xDestino,yDestino,estado):
+        rei = estado[xOrigem][yOrigem]
+        if(estado[xOrigem][yOrigem].upper()=='K'):
+            if(xOrigem==7 and yOrigem==4):
+                if(estado[xDestino][yDestino].upper()=='T'):
+                    if(xDestino==7 and yDestino==7):
+                        if(self.verificaColisaoHorizontal(yOrigem, yDestino, xOrigem, estado)==estado[xDestino][yDestino]):
+                            if self.validaCheque(estado, xOrigem, yOrigem +1,rei) \
+                                    or self.validaCheque(estado, xOrigem, yOrigem +2,rei):
+                                return False
+                            else:
+                                return True
+                    elif(xDestino==7 and yDestino==0):
+                        if(self.verificaColisaoHorizontal(yOrigem, yDestino, xOrigem, estado)==estado[xDestino][yDestino]):
+                            if(self.validaCheque(estado,xOrigem,yOrigem-1,rei)or self.validaCheque(estado,xOrigem,yOrigem-2,rei)):
+                                return False
+                            else:
+                                return True
+
+            elif (xOrigem==0 and yOrigem==3):
+                if(estado[xDestino][yDestino].upper()=='T'):
+                    if(xDestino==0 and yDestino==7):
+                        if(self.verificaColisaoHorizontal(yOrigem, yDestino, xOrigem, estado)==estado[xDestino][yDestino]):
+                            if(self.validaCheque(estado,xOrigem,yOrigem+1,rei)or self.validaCheque(estado,xOrigem,yOrigem+2,rei)):
+                                return False
+                            else:
+                                return True
+                    elif(xDestino==0 and yDestino==0):
+                        if(self.verificaColisaoHorizontal(yOrigem, yDestino-1, xOrigem, estado)==estado[xDestino][yDestino]):
+                            if(self.validaCheque(estado,xOrigem,yOrigem-1,rei)or self.validaCheque(estado,xOrigem,yOrigem-2,rei)):
+                                return False
+                            else:
+                                return True
+
+        return False
+
+    def validaEnPassant(self,xOrigem,yOrigem,xDestino,yDestino,peaoEnPassant, estado):
         #so entra caso seja um peão
-        if(estado[xOrigem][yOrigem].lower =='p'):
+        if(estado[xOrigem][yOrigem].lower()=='p'):
             #caso o enPassant nâo tenha acontecido, ou não seja do turno passado ou seja de uma peça da mesma cor
             if peaoEnPassant == [0,0,0] or peaoEnPassant[2]!= estado.contadorTurno-1 or estado[peaoEnPassant[0],peaoEnPassant[1]] == estado[xOrigem,yOrigem]:
                 return False
@@ -116,7 +161,7 @@ class MaquinaRegras:
         print("Empate")
 
     @staticmethod
-    def validaPromocao(estado, xPeca, yPeca):
+    def validaPromocao(self,estado, xPeca, yPeca):
         print("chamou promocao %s %d %d" % (estado[xPeca][yPeca], xPeca, yPeca))
         if estado[xPeca][yPeca] == "p" and xPeca == 7:
             print("promove")
@@ -136,8 +181,176 @@ class MaquinaRegras:
     def validaVitoria(self):
         print("Vitoria")
 
-    def validaCheque(self):
+    def validaRange(self,numero):
+        if(numero>-1) and (numero<8):
+            return True
+        else: return False
+
+
+    def validaAliado(self,peca1,peca2):
+        #Verifica se peças são iguais
+        if(peca1.islower() and peca2.islower())or(peca1.isupper() and peca2.isupper()):
+            return True
+        return False
+
+    def validaChequeCavalos(self,estado,xRei,yRei):
+        rei = estado[xRei][yRei]
+        if self.validaRange(xRei+1):
+            if self.validaRange(yRei+2):
+                peca = estado[xRei+1][yRei+2]
+                if (not self.validaAliado(rei,peca)) and (peca.lower()=='h'):
+                    return True
+            if self.validaRange(yRei - 2):
+                peca = estado[xRei + 1][yRei - 2]
+                if (not self.validaAliado(rei, peca)) and (peca.lower() == 'h'):
+                    return True
+
+        if self.validaRange(xRei+2):
+            if self.validaRange(yRei+1):
+                peca = estado[xRei+2][yRei+1]
+                if (not self.validaAliado(rei,peca)) and (peca.lower()=='h'):
+                    return True
+            if self.validaRange(yRei - 1):
+                peca = estado[xRei + 2][yRei - 1]
+                if (not self.validaAliado(rei, peca)) and (peca.lower() == 'h'):
+                    return True
+
+        if self.validaRange(xRei - 1):
+            if self.validaRange(yRei + 2):
+                peca = estado[xRei - 1][yRei + 2]
+                if (not self.validaAliado(rei, peca)) and (peca.lower() == 'h'):
+                    return True
+            if self.validaRange(yRei - 2):
+                peca = estado[xRei - 1][yRei - 2]
+                if (not self.validaAliado(rei, peca)) and (peca.lower() == 'h'):
+                    return True
+
+        if self.validaRange(xRei - 2):
+            if self.validaRange(yRei + 1):
+                peca = estado[xRei - 2][yRei + 1]
+                if (not self.validaAliado(rei, peca)) and (peca.lower() == 'h'):
+                    return True
+            if self.validaRange(yRei - 1):
+                peca = estado[xRei - 2][yRei - 1]
+                if (not self.validaAliado(rei, peca)) and (peca.lower() == 'h'):
+                    return True
+        return False
+
+    def buscaDiagonalDireita(self,x,y,quad):
+        ## Se quadrante 1 = Superior, se nao, inferior
+        i = 0
+        if quad>0:
+            while i<8 :
+                if(x-i==0 or y+i==7):
+                    return i
+                i=i+1
+        else:
+            while i<8 :
+                if(x+i==7 or y+i==7):
+                    return i
+            i = i + 1
+
+    def buscaDiagonalEsquerda(self,x,y,quad):
+        ## Se quadrante 1 = Superior, se nao, inferior
+        i = 0
+        if quad > 0:
+            while i < 8:
+                if (x - i == 0 or y - i == 0):
+                    return i
+                i = i + 1
+        else:
+            while i < 8:
+                if (x + i == 7 or y - i == 0):
+                    return i
+                i = i + 1
+
+    def validaCheque(self,estado,xRei,yRei,rei):
+        #Retorna True caso cheque, podemos mudar para retornar par posiçao para mostrar na tela
         print("cheque")
+        #rei = estado[xRei][yRei]
+        #verifica peoes
+        coef = 1
+        if(rei=='k'): coef=-1
+        if self.validaRange(xRei - 1*coef) and self.validaRange(yRei + 1):
+            peca = estado[xRei -1*coef][yRei + 1]
+            if (not self.validaAliado(rei,peca)) and (peca.lower() == 'p' or peca.lower() =='q' or peca.lower()=='b'):
+                return True
+        if self.validaRange(xRei -1*coef) and self.validaRange(yRei + 1):
+            peca = estado[xRei -1*coef][yRei - 1]
+            if (not self.validaAliado(rei,peca)) and (peca.lower() == 'p' or peca.lower() =='q' or peca.lower()=='b'):
+                return True
+
+        #verifica outras peças
+        #Horizontal Direita:
+        peca = self.verificaColisaoHorizontal(yRei, 7, xRei, estado)
+        if (peca is not " ") and (not self.validaAliado(rei,peca)):
+            if(peca.lower()=='q' or peca.lower()=='t'):
+                return True
+
+        #Horizontal esquerda:
+        peca = self.verificaColisaoHorizontal(yRei, 0, xRei, estado)
+        if (peca is not " ") and (not self.validaAliado(rei, peca)):
+            if (peca.lower() == 'q' or peca.lower() == 't'):
+                return True
+
+        #Vertical cima:
+        peca = self.verificaColisaoVertical(xRei, 7, yRei, estado)
+        if (peca is not " ") and (not self.validaAliado(rei, peca)):
+            if (peca.lower() == 'q' or peca.lower() == 't'):
+                return True
+
+        #Vertical baixo:
+        peca = self.verificaColisaoVertical(xRei, 0, yRei, estado)
+        if (peca is not " ") and (not self.validaAliado(rei, peca)):
+            if (peca.lower() == 'q' or peca.lower() == 't'):
+                return True
+
+        #Diagonais Superiores
+        #direita
+        range = self.buscaDiagonalDireita(xRei,yRei,1)
+        if(self.validaRange(range)):
+            range = range+1
+            peca = self.verificaColisaoDiagonal(xRei, yRei, xRei-range, yRei+range, estado)
+            if (peca is not " ") and (not self.validaAliado(rei, peca)):
+                if (peca.lower() == 'q' or peca.lower() == 'b'):
+                    return True
+        #Esquerda
+        range = self.buscaDiagonalEsquerda(xRei, yRei, 1)
+        if (self.validaRange(range)):
+            range = range + 1
+            peca = self.verificaColisaoDiagonal(xRei, yRei, xRei - range, yRei - range, estado)
+            if (peca is not " ") and (not self.validaAliado(rei, peca)):
+                if (peca.lower() == 'q' or peca.lower() == 'b'):
+                    return True
+
+        # Diagonais Inferiores
+        #Direita
+        #range = max(xRei-7, yRei-7)
+        #ta indo de cima pra baixo e não ao contrario
+        #print("range: ",range," xrei: ",xRei," yRei",yRei)
+        #print(xRei-range)
+        #print(yRei+range)
+        range = self.buscaDiagonalDireita(xRei, yRei, -1)
+        if (self.validaRange(range)):
+            range = range + 1
+            peca = self.verificaColisaoDiagonal(xRei, yRei, xRei + range, yRei + range, estado)
+            if (peca is not " ") and (not self.validaAliado(rei, peca)):
+                if (peca.lower()== 'q' or peca.lower()== 'b'):
+                    return True
+
+        #Esquerda
+        range = self.buscaDiagonalEsquerda(xRei, yRei, -1)
+        if (self.validaRange(range)):
+            range = range + 1
+            peca = self.verificaColisaoDiagonal(xRei, yRei, xRei + range, yRei - range, estado)
+            if (peca is not " ") and (not self.validaAliado(rei, peca)):
+                if (peca.lower()== 'q' or peca.lower()== 'b'):
+                    return True
+
+        # verifica Cavalos
+        if (self.validaChequeCavalos(estado,xRei,yRei)): return True
+
+        return False
 
     @staticmethod
     def geraMovimentosPossiveis(xOrigem, yOrigem, estado, turno):
