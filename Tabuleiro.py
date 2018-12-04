@@ -5,7 +5,7 @@ import AI as ai
 class Tabuleiro:
     instancia = None
     estado = [
-        ["t", "h", "b", "k", "q", "b", "h", "t"],
+        ["t", "h", "b", "q", "k", "b", "h", "t"],
         ["p", "p", "p", "p", "p", "p", "p", "p"],
         [" ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " "],
@@ -61,8 +61,9 @@ class Tabuleiro:
         else:
             self.chequeReis[0] = mr.MaquinaRegras.validaCheque(self.estado, self.rei[0], self.rei[1], self.rei)
         self.contadorTurno += 1
-        if self.pegaJogadorAtual() == 2:
-           ai.joga(self.pegaInstancia())
+        if (self.contadorTurno % 2) == 1:
+            print(self.contadorTurno)
+            ai.joga(self.pegaInstancia())
 
     def pegaJogadorAtual(self):
         return (self.contadorTurno % 2) + 1
