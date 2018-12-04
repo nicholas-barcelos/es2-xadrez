@@ -5,7 +5,7 @@ import AI as ai
 class Tabuleiro:
     instancia = None
     estado = [
-        ["t", "h", "b", "q", "k", "b", "h", "t"],
+        ["t", "h", "b", "k", "q", "b", "h", "t"],
         ["p", "p", "p", "p", "p", "p", "p", "p"],
         [" ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " "],
@@ -24,10 +24,14 @@ class Tabuleiro:
     #Posicao do Rei para verificar o cheque
     rei = [7,4]
     rei2= [0,3]
-    peaoEnPassant = [0,0,0]#recebendo [x,y,turno]
+    chequeReis = [False,False] #Rei baixo, Rei cima
+    peaoEnPassant = [0,0,0] #recebendo [x,y,turno]
     jogador = None
     contadorTurno = 0
     cemiterio = None
+    #movimentos sem haver comida
+    somaMovimentosSemAcao = 0
+    maquina = mr.MaquinaRegras()
 
     def __init__(self):
         self.cemiterio = grv.Cemiterio.pegaInstancia()
@@ -52,10 +56,14 @@ class Tabuleiro:
         print("Inverte")
 
     def avancaTurno(self):
+        # verificar se o rei oponente esta em cheque
+        if(self.pegaJogadorAtual()==1):
+            self.chequeReis[1] = mr.MaquinaRegras.validaCheque(self.estado,self.rei2[0],self.rei2[1],self.rei2)
+        else:
+            self.chequeReis[0] = mr.MaquinaRegras.validaCheque(self.estado, self.rei[0], self.rei[1], self.rei)
         self.contadorTurno += 1
-        if (self.contadorTurno % 2) == 1:
-            print(self.contadorTurno)
-            ai.joga(self.pegaInstancia())
+        #if self.pegaJogadorAtual() == 2:
+        #   ai.AI.joga(self.pegaInstancia())
 
     def pegaJogadorAtual(self):
         return (self.contadorTurno % 2) + 1
@@ -69,11 +77,11 @@ class Tabuleiro:
         if(pecaClicada.isupper() and self.pegaJogadorAtual()==1
             or pecaClicada.islower() and self.pegaJogadorAtual()==2):
             self.pecaSelecionada = pecaClicada
-            # movimentosPossiveis = mr.MaquinaRegras.geraMovimentosPossiveis(x, y, self.estado, self.pegaJogadorAtual())
-            # for i in movimentosPossiveis:
-            #     for j in i:
-            #         print(j, end=' ')
-            #     print()
+            movimentosPossiveis = mr.MaquinaRegras.geraMovimentosPossiveis(x, y, self.estado, self.pegaJogadorAtual())
+            for i in movimentosPossiveis:
+                for j in i:
+                    print(j, end=' ')
+                print()
             self.xSelecionado = x
             self.ySelecionado = y
             return False
@@ -81,6 +89,8 @@ class Tabuleiro:
             tentativa = self.movePeca(x, y)
             if(tentativa and pecaClicada != " "):
                 self.cemiterio.adicionaPeca(pecaClicada, self)
+                self.somaMovimentosSemAcao = 0
+            self.somaMovimentosSemAcao= self.somaMovimentosSemAcao+1
             return tentativa
         return False
 
@@ -94,31 +104,61 @@ class Tabuleiro:
         print("Nao lembro")
 
     def movePeca(self, xDestino, yDestino):
+        if (self.pegaJogadorAtual() == 1):
+            reiVez = self.rei2
+        else:
+            reiVez = self.rei
+
         if (mr.MaquinaRegras.validaMovimentacao(self.xSelecionado, self.ySelecionado, xDestino, yDestino, self.estado, self.pegaJogadorAtual())):
+            temporario = self.estado[xDestino][yDestino]
             self.estado[xDestino][yDestino] = self.estado[self.xSelecionado][self.ySelecionado]
-            if(not mr.MaquinaRegras.verificaCheque(self.rei, self.estado)):
-                self.estado[xDestino][yDestino] = " "
+            self.estado[self.xSelecionado][self.ySelecionado] = " "
+            if(mr.MaquinaRegras.validaCheque(self.estado,reiVez[0],reiVez[1], self.estado[reiVez[0]][reiVez[1]])):
+                self.estado[self.xSelecionado][self.ySelecionado] = self.estado[xDestino][yDestino]
+                self.estado[xDestino][yDestino] = temporario
+                temporario = " "
                 print("Rei em Cheque")
                 return False
-            self.estado[self.xSelecionado][self.ySelecionado] = " "
             self.pecaSelecionada = " "
             print("Pode Movimentar")
             mr.MaquinaRegras.validaPromocao(self.estado, xDestino, yDestino)
             self.avancaTurno()
             return True
         elif (mr.MaquinaRegras.validaEnPassant(self.xSelecionado,self.ySelecionado,xDestino,yDestino,self.peaoEnPassant,self.estado)):
+            temporario = self.estado[xDestino][yDestino]
             self.estado[xDestino][yDestino] = self.estado[self.xSelecionado][self.ySelecionado]
-            if(not mr.MaquinaRegras.verificaCheque(self.rei, self.estado)):
+            self.estado[self.xSelecionado][self.ySelecionado] = " "
+            if(mr.MaquinaRegras.validaCheque(self.estado,reiVez[0],reiVez[1], self.estado[reiVez[0]][reiVez[1]])):
+                self.estado[self.xSelecionado][self.ySelecionado] = ' '
                 self.estado[xDestino][yDestino] = " "
                 print("Rei em Cheque")
                 return False
-            self.estado[self.xSelecionado][self.ySelecionado] = ' '
             self.cemiterio.adicionaPeca(self.peaoEnPassant[2], self)
             self.estado[self.peaoEnPassant[0]][self.peaoEnPassant[1]] = ' '
             self.avancaTurno()
             return True
-        print("Não pode Movimentar")
-        return False
+        elif (mr.MaquinaRegras.validaRoque(self.xSelecionado,self.ySelecionado, xDestino, yDestino,self.estado)):
+            if(yDestino>self.ySelecionado):
+                self.estado[self.xSelecionado][self.ySelecionado+2] = self.estado[self.xSelecionado][self.ySelecionado]
+                self.estado[self.xSelecionado][self.ySelecionado] = " "
+                if(xDestino==0):
+                    self.estado[xDestino][yDestino-3] = self.estado[xDestino][yDestino]
+                    self.estado[xDestino][yDestino] = " "
+                else:
+                    self.estado[xDestino][yDestino-2] = self.estado[xDestino][yDestino]
+            else:
+                self.estado[self.xSelecionado][self.ySelecionado-2] = self.estado[self.xSelecionado][self.ySelecionado]
+                self.estado[self.xSelecionado][self.ySelecionado] = " "
+                if(xDestino==0):
+                    self.estado[xDestino][yDestino+2] = self.estado[xDestino][yDestino]
+                    self.estado[xDestino][yDestino] = " "
+                else:
+                    self.estado[xDestino][yDestino+3] = self.estado[xDestino][yDestino]
+            self.avancaTurno()
+            return True
+        else:
+            print("Não pode Movimentar")
+            return False
 
     def inverte(self):
         tam = self.estado.__len__()
