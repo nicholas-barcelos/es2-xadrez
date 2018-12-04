@@ -61,8 +61,8 @@ class Tabuleiro:
         else:
             self.chequeReis[0] = mr.MaquinaRegras.validaCheque(self.estado, self.rei[0], self.rei[1], self.rei)
         self.contadorTurno += 1
-        #if self.pegaJogadorAtual() == 2:
-        #   ai.AI.joga(self.pegaInstancia())
+        if self.pegaJogadorAtual() == 2:
+           ai.joga(self.pegaInstancia())
 
     def pegaJogadorAtual(self):
         return (self.contadorTurno % 2) + 1
@@ -76,11 +76,11 @@ class Tabuleiro:
         if(pecaClicada.isupper() and self.pegaJogadorAtual()==1
             or pecaClicada.islower() and self.pegaJogadorAtual()==2):
             self.pecaSelecionada = pecaClicada
-            movimentosPossiveis = mr.MaquinaRegras.geraMovimentosPossiveis(x, y, self.estado, self.pegaJogadorAtual())
-            for i in movimentosPossiveis:
-                for j in i:
-                    print(j, end=' ')
-                print()
+            # movimentosPossiveis = mr.MaquinaRegras.geraMovimentosPossiveis(x, y, self.estado, self.pegaJogadorAtual())
+            # for i in movimentosPossiveis:
+            #     for j in i:
+            #         print(j, end=' ')
+            #     print()
             self.xSelecionado = x
             self.ySelecionado = y
             return False
