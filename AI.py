@@ -82,6 +82,11 @@ def pegaMelhorMovimento(profundidade, tabuleiro):
     return melhorMovimento
 
 def joga(tabuleiro):
+    pecasBrancasAntes = ["%s %d %d" % (peca, i, j) for i, linha in enumerate(tabuleiro.estado) for j,peca in enumerate(linha) if peca.isupper()]
     jogadaDaIA = pegaMelhorMovimento(3, tabuleiro.copiaInstancia())
+    pecasBrancasDepois = ["%s %d %d" % (peca, i, j) for i, linha in enumerate(jogadaDaIA) for j,peca in enumerate(linha) if peca.isupper()]
     tabuleiro.estado = jogadaDaIA
+    pecaMorta = [peca[0] for peca in pecasBrancasAntes if peca not in pecasBrancasDepois]
+    if pecaMorta:
+        tabuleiro.cemiterio.adicionaPeca(pecaMorta[0], tabuleiro)
     tabuleiro.avancaTurno()
