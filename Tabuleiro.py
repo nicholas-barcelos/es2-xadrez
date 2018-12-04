@@ -1,7 +1,7 @@
 import copy
 import MaquinaRegras as mr
 import Cemiterio as grv
-import AI as ai
+import AI_bkp as ai
 class Tabuleiro:
     instancia = None
     estado = [

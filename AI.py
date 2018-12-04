@@ -12,7 +12,6 @@ def avaliaEstado(tabuleiro):
             valorTabuleiro += hr.Heuristica.pegaValorPeca(tabuleiro.estado[i][j], i, j)
     return valorTabuleiro
 
-
 def pegaMovimentos(tabuleiro, jogadorMax):
     #vai pegar proximos estados possiveis a partir do estado atual
     movimentos = []
@@ -34,60 +33,57 @@ def pegaMovimentos(tabuleiro, jogadorMax):
                 movimentos.append(movimentosParaPeca)
     return movimentos
 
+def raizMinimax(profundidade, tabuleiro, ehJogadorMax):
+    movimentosPossiveis = pegaMovimentosPossiveis(tabuleiro, True)
+    melhorPontuacao = -9999;
+    melhorMovimentoEncontrado = []
 
+    for movimento in movimentosPossiveis:
+	tabuleiroAntes = tabuleiro.copiaInstancia()
+	tabuleiro.estado = movimento
+        pontuacao = minimax(profundidade - 1, tabuleiro, -10000.0, 10000.0, not ehJogadorMax)
+        tabuleiro = tabuleiroAntes
+        if pontuacao >= melhorPontuacao:
+            melhorPontuacao = pontuacao
+            melhorMovimentoEncontrado = movimento
+    return melhorMovimentoEncontrado
 
 def minimax(profundidade, tabuleiro, alpha, beta, ehJogadorMax):
     if profundidade == 0:
-        return (None, -avaliaEstado(tabuleiro)) #ia começa pela peça preta
+        return -avaliaEstado(tabuleiro)
 
-    movimentosPossiveis = pegaMovimentos(tabuleiro, ehJogadorMax)
+    movimentosPossiveis = pegaMovimentosPossiveis(tabuleiro, ehJogadorMax)
 
     if ehJogadorMax:
-        melhorPontuacao = -9999
-        melhorJogada = []
+        melhorPontuacao = -9999.0;
         for movimento in movimentosPossiveis:
-            #executa movimento
             tabuleiroAntes = tabuleiro.copiaInstancia()
             tabuleiro.estado = movimento
-            pontuacaoJogada = avaliaEstado(tabuleiro)
-            jogada, pontuacao = minimax(profundidade-1, tabuleiro, alpha, beta, not ehJogadorMax)
-            if pontuacaoJogada > pontuacao:
-                pontuacao = pontuacaoJogada
-                jogada = movimento
-            #jogada = tabuleiro.copiaInstancia()
-            #desfaz jogada
+            melhorPontuacao = max(melhorPontuacao, minimax(profundidade - 1, tabuleiro, alpha, beta, not ehJogadorMax))
             tabuleiro = tabuleiroAntes
-            if pontuacao > melhorPontuacao:
-                melhorPontuacao, melhorJogada = pontuacao, jogada
-            alpha = max(alpha, melhorPontuacao)
+            alpha = Math.max(alpha, melhorPontuacao)
             if beta <= alpha:
-                # melhorJogada, melhorPontuacao = jogada, pontuacao
-                return (melhorJogada, melhorPontuacao)
-        return (melhorJogada, melhorPontuacao)
+                return melhorPontuacao
+        return melhorPontuacao
     else:
-        melhorPontuacao = 9999
-        melhorJogada = []
+        melhorPontuacao = 9999.0
         for movimento in movimentosPossiveis:
-            #executa movimento
             tabuleiroAntes = tabuleiro.copiaInstancia()
             tabuleiro.estado = movimento
-            pontuacaoJogada = avaliaEstado(tabuleiro)
-            jogada, pontuacao = minimax(profundidade-1, tabuleiro, alpha, beta, not ehJogadorMax)
-            if pontuacaoJogada < pontuacao:
-                pontuacao = pontuacaoJogada
-                jogada = movimento
-            #salvarJogada = tabuleiro.copiaInstancia().estado
-            #desfaz jogada
+            melhorPontuacao = min(melhorPontuacao, minimax(profundidade - 1, tabuleiro, alpha, beta,  not ehJogadorMax))
             tabuleiro = tabuleiroAntes
-            if pontuacao < melhorPontuacao:
-                melhorPontuacao, melhorJogada = pontuacao, jogada
             beta = min(beta, melhorPontuacao)
             if beta <= alpha:
-                #melhorJogada,melhorPontuacao = jogada, pontuacao
-                return (melhorJogada, melhorPontuacao)
-        return (melhorJogada, melhorPontuacao)
+                return melhorPontuacao
+        return melhorPontuacao
+
+def pegaMelhorMovimento(profundidade, tabuleiro):
+    # if (game.game_over()):
+    #    print("game over")
+    melhorMovimento = raizMinimax(profundidade, tabuleiro, True)
+    return melhorMovimento
 
 def joga(tabuleiro):
-    jogadaDaIA, _ = minimax(3, tabuleiro, -10000, 10000, True)
+    jogadaDaIA = pegaMelhorMovimento(3, tabuleiro)
     tabuleiro.estado = jogadaDaIA
     tabuleiro.avancaTurno()
