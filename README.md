@@ -17,11 +17,14 @@
 - Pyinstaller [para criar o executável]
 
 ### Como instalar as dependências
-'pip install pygame pyinstaller'
+`pip install pygame pyinstaller`
 
 ## Como rodar
  Com as dependências instaladas e dentro do seu ambiente virtual, rode
- 'python game.py'
+ `python game.py`
  
 ### Criando o executável
- 
+ `pyinstaller --onefile game.py`
+ O executável será posto na pasta `dist`, e para executá-lo [LINUX]:
+ `./game`
+ Nota: É necessário copiar a pasta `assets` e colocá-la na mesma pasta onde irá se executar o jogo.
